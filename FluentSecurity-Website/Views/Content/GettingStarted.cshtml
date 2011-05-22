@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "GettingStarted";
+}
+<h2>Getting started</h2>
+		
+<p>Add the following at the end of Application_Start in your Global.asax and follow the advice given in the comments.<br /><em>The example is based on the Internet Application template for ASP.NET MVC 3.</em></p>
+<pre><code>
+SecurityConfigurator.Configure(configuration =>
+{
+	// Let Fluent Security know how to get the authentication status of the current user
+	configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
+
+	// Optional: Let Fluent Security know how to get the roles for the current user
+	//configuration.GetRolesFrom(() => YourSecurityHelper.GetCurrentUserRoles());
+
+	// Optional: Let Fluent Security know of your IoC-container.
+	// If you register a service locator Fluent Security will try to resolve it's instances
+	// from the container before falling back to the default instances of Fluent Security.
+	//configuration.ResolveServicesUsing(ServiceLocator.Current.GetAllInstances);
+
+	// Optional: Tell Fluent Security to ignore missing policy configurations.
+	// This is useful if you only want Fluent Security to handle security for parts
+	// of your system. Unless this is the case, it is recommended you leave it as is.
+	//configuration.IgnoreMissingConfiguration();
+
+	// This is where you set up the policies you want Fluent Security to enforce
+	configuration.For&lt;HomeController>().Ignore();
+
+	configuration.For&lt;AccountController>().DenyAuthenticatedAccess();
+	configuration.For&lt;AccountController>(x => x.LogOff()).DenyAnonymousAccess();
+});
+
+GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
+</code></pre>
+				
+<h2>Policies</h2>
+<p>Fluent Security provides a small set of policies that should be enough for the basic scenarios.</p>
+<dl>
+	<dt><strong>DenyAnonymousAccessPolicy</strong></dt>
+	<dd>The user must be authenticated. Requires no specific role.</dd>
+					
+	<dt><strong>DenyAuthenticatedAccessPolicy</strong></dt>
+	<dd>The user must be anonymous.</dd>
+					
+	<dt><strong>RequireRolePolicy</strong></dt>
+	<dd>The user must be authenticated with one or more of the specified roles.</dd>
+					
+	<dt><strong>IgnorePolicy</strong></dt>
+	<dd>All users are allowed.</dd>
+</dl>
+				
+<p>If needed you can create your own policies by implementing the interface ISecurityPolicy.</p>
+<!-- TODO: Show example implementation of interface and how to add it to the configuration (.AddPolicy(new ExamplePolicy())) -->
+				
+<h2>Configuration in depth</h2>
+
+<h3>Bootstrapping</h3>
+<p>Add the action filter HandleSecurityAttribute to your global filters collection.</p>
+<p><code>GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);</code></p>
+<p>Make sure that you put your call to <code>SecurityConfigurator.Configure(...)</code> before registering the action filter or it will blow up.<p/>
+				
+<!-- TODO: Add alternative example that shows off roles.
+				
+policy.For<BlogController>(x => x.AddComment()).DenyAnonymousAccess();
+policy.For<BlogController>(x => x.DeleteComment()).RequireRole(BlogRole.Owner);
+policy.For<BlogController>(x => x.AddPost()).RequireRole(BlogRole.Writer);
+policy.For<BlogController>(x => x.PublishPost()).RequireRole(BlogRole.Owner);
+
+policy.For<BlogController>(x => x.LogIn()).DenyAuthenticatedAccess();
+policy.For<BlogController>(x => x.LogOut()).DenyAnonymousAccess();
+
+policy.For<AdminController>().RequireRole(BlogRole.Administrator);
+policy.For<AdminController>(x => x.Help()).Ignore();
+-->
