@@ -1,10 +1,10 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using FluentSecurity_Website.App.Extensions;
-using FluentSecurity_Website.Controllers;
+using FluentSecurity.Website.App.Extensions;
+using FluentSecurity.Website.Controllers;
 
-namespace FluentSecurity_Website
+namespace FluentSecurity.Website
 {
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=9394801

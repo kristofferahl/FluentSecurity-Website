@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace FluentSecurity_Website.Controllers
+namespace FluentSecurity.Website.Controllers
 {
     public class ContentController : Controller
     {

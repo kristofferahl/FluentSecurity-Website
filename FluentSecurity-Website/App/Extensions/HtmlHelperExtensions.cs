@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace FluentSecurity_Website.App.Extensions
+namespace FluentSecurity.Website.App.Extensions
 {
 	public static class HtmlHelperExtensions
 	{

@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace FluentSecurity_Website.App.Extensions
+namespace FluentSecurity.Website.App.Extensions
 {
 	///<summary>
 	/// Extends TagBuilder
