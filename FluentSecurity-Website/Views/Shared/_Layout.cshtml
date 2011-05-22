@@ -11,14 +11,14 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<ul id="menu">
-				<li>@Html.ActionLink("Home", "Index", "Content")</li>
-				<li>@Html.ActionLink("Getting started", "GettingStarted", "Content")</li>
-				<!--<li><a href="#">Documentation</a></li>-->
-				<li><a href="https://github.com/kristofferahl/FluentSecurity/downloads">Downloads</a></li>
-				<li><a href="https://github.com/kristofferahl/FluentSecurity">Contribute</a></li>
-				<li><a href="https://github.com/kristofferahl/FluentSecurity/issues">Support</a></li>
-			</ul>
+			@Html.Navigation(() => new List<MvcHtmlString> {
+				@Html.NavigationLink(Url.Action<ContentController>(x => x.Index()), "Home", "li"),
+				@Html.NavigationLink(Url.Action<ContentController>(x => x.GettingStarted()), "Getting started", "li"),
+				@Html.NavigationLink("", "Documentation", "li"),
+				@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity/downloads", "Downloads", "li"),
+				@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity", "Contribute", "li"),
+				@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity/issues", "Support", "li")
+			}, new { id = "menu" }, "ul")
 			<div class="highlights">
 				<div id="pitch">
 					<h1><img src="@Url.Content("~/Content/Images/Fluent Security-Logo-6-Icon-100x100.png")" id="logo" /> <a href="index.html"><span>Fluent</span> Security</a> configuration<br />for ASP.NET MVC</h1>
