@@ -1,0 +1,18 @@
+﻿@model string
+@{
+	var id = Model;
+	string wrapperElement = null;
+	string containerElement = "p";
+	if (id == "menu") {
+		wrapperElement = "li";
+		containerElement = "ul";
+	}
+}
+@Html.Navigation(() => new List<MvcHtmlString> {
+	@Html.NavigationLink(Url.Action<ContentController>(x => x.Index()), "Home", wrapperElement),
+	@Html.NavigationLink(Url.Action<ContentController>(x => x.GettingStarted()), "Getting started", wrapperElement),
+	@Html.NavigationLink("", "Documentation", "li"),
+	@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity/downloads", "Downloads", wrapperElement),
+	@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity", "Contribute", wrapperElement),
+	@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity/issues", "Support", wrapperElement)
+}, new { id }, containerElement)

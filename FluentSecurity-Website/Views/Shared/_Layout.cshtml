@@ -11,14 +11,7 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			@Html.Navigation(() => new List<MvcHtmlString> {
-				@Html.NavigationLink(Url.Action<ContentController>(x => x.Index()), "Home", "li"),
-				@Html.NavigationLink(Url.Action<ContentController>(x => x.GettingStarted()), "Getting started", "li"),
-				@Html.NavigationLink("", "Documentation", "li"),
-				@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity/downloads", "Downloads", "li"),
-				@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity", "Contribute", "li"),
-				@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity/issues", "Support", "li")
-			}, new { id = "menu" }, "ul")
+			@Html.Partial("_Navigation", "menu")
 			<div class="highlights">
 				<div id="pitch">
 					<h1><img src="@Url.Content("~/Content/Images/Fluent Security-Logo-6-Icon-100x100.png")" id="logo" /> <a href="index.html"><span>Fluent</span> Security</a> configuration<br />for ASP.NET MVC</h1>
@@ -35,15 +28,9 @@
 		<div id="main">
 			@RenderBody()
 		</div>
-		<!--<div id="footer">
-			<p id="secondary-menu">
-				<a class="current" href="#">Home</a>
-				<a href="#">Getting started</a>
-				<a href="#">Downloads</a>
-				<a href="#">Contribute</a>
-				<a href="#">Support</a>
-			</p>
-		</div>-->
+		<div id="footer">
+			@Html.Partial("_Navigation", "secondary-menu")
+		</div>
 	</div>
 </body>
 </html>
