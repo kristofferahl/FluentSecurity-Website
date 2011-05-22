@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using FluentSecurity_Website.App.Extensions;
+using FluentSecurity_Website.Controllers;
 
 namespace FluentSecurity_Website
 {
@@ -21,12 +20,13 @@ namespace FluentSecurity_Website
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-			routes.MapRoute(
-				"Default", // Route name
-				"{controller}/{action}/{id}", // URL with parameters
-				new { controller = "Content", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-			);
+			routes.RouteFor<ContentController>(x => x.GettingStarted(), "getting-started");
+			routes.RouteFor<ContentController>(x => x.Index(), "");
 
+			routes.RouteFor<ContentController>(x => x.Http500(), "system/http-500");
+			routes.RouteFor<ContentController>(x => x.Http404(), "system/http-404");
+
+			routes.MapRoute("CatchAll", "{*url}", new { controller = "Content", action = "Http404" });
 		}
 
 		protected void Application_Start()
@@ -35,6 +35,15 @@ namespace FluentSecurity_Website
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+		}
+
+		protected void Application_Error()
+		{
+			var httpException = Server.GetLastError() as HttpException;
+			if (httpException != null && httpException.GetHttpCode() == 404)
+			{
+				Response.Redirect("~/system/http-404", true);
+			}
 		}
 	}
 }

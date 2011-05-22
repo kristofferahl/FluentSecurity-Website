@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace FluentSecurity_Website.Controllers
 {
@@ -13,5 +14,17 @@ namespace FluentSecurity_Website.Controllers
 		{
 			return View();
 		}
+
+    	public ActionResult Http404()
+    	{
+    		Response.StatusCode = 404;
+    		return View();
+    	}
+
+    	public ActionResult Http500()
+    	{
+			Response.StatusCode = 500;
+    		return View();
+    	}
     }
 }

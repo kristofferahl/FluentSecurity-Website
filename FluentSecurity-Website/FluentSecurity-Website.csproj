@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="App\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="App\Extensions\MvcExtensions.cs" />
+    <Compile Include="App\Extensions\RouteCollectionExtensions.cs" />
+    <Compile Include="App\Extensions\RouteHelper.cs" />
     <Compile Include="App\Extensions\TagBuilderExtensions.cs" />
     <Compile Include="App\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Controllers\ContentController.cs" />
@@ -121,6 +123,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Content\GettingStarted.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content\Http404.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content\Http500.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
