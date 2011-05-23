@@ -16,7 +16,7 @@ dl {margin-bottom: 2em;}
 dt, dd {padding: .2em 0;}
 dd {margin-left: 1em;}
 dd + dt {margin-top: 1em;}
-pre {margin-bottom: 1em; padding: 1em 3em; background: url(../images/content.png) repeat; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px;}
+pre {margin-bottom: 1em; padding: 1em 3em 3em 3em; background: url(../images/content.png) repeat; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px;}
 code {font-size: 13px; font-family: consolas; font-weight: bold;}
 
 #wrapper { width: 984px; margin: auto; }
