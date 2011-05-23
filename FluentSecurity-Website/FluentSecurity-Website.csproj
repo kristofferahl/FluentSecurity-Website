@@ -75,7 +75,7 @@
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Images\body.gif" />
     <Content Include="Content\Images\content.png" />
-    <Content Include="Content\Images\Fluent Security-Logo-6-Icon-100x100.png" />
+    <Content Include="Content\Images\Fluent-Security-Logo-100x100.png" />
     <Content Include="Content\Images\line.gif" />
     <Content Include="Content\Images\pitch-fs.jpg" />
     <Content Include="Content\Images\thumb.gif" />
