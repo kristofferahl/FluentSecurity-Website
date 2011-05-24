@@ -81,6 +81,7 @@
     <Content Include="Content\Images\pitch-fs.jpg" />
     <Content Include="Content\Images\thumb.gif" />
     <Content Include="Global.asax" />
+    <Content Include="google148a77af5c4b1070.html" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
