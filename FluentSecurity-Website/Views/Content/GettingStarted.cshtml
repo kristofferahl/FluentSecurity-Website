@@ -3,36 +3,52 @@
 }
 <h2>Getting started</h2>
 
-<p>Add the following at the end of Application_Start in your Global.asax and follow the advice given in the comments.<br /><em>The example is based on the Internet Application template for ASP.NET MVC 3.</em></p>
+<h3>The bare essentials</h3>
+<p>Add the following at the end of Application_Start in your Global.asax and you're good to go!<br /><em>The example is based on the Internet Application template for ASP.NET MVC 3.</em></p>
 <pre><code>
 SecurityConfigurator.Configure(configuration =>
 {
 	// Let Fluent Security know how to get the authentication status of the current user
 	configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
 
-	// Optional: Let Fluent Security know how to get the roles for the current user
-	//configuration.GetRolesFrom(() => YourSecurityHelper.GetCurrentUserRoles());
-
-	// Optional: Let Fluent Security know of your IoC-container.
-	// If you register a service locator Fluent Security will try to resolve it's instances
-	// from the container before falling back to the default instances of Fluent Security.
-	//configuration.ResolveServicesUsing(ServiceLocator.Current.GetAllInstances);
-
-	// Optional: Tell Fluent Security to ignore missing policy configurations.
-	// This is useful if you only want Fluent Security to handle security for parts
-	// of your system. Unless this is the case, it is recommended you leave it as is.
-	//configuration.IgnoreMissingConfiguration();
-
-	// This is where you set up the policies you want Fluent Security to enforce
+	// This is where you set up the policies you want Fluent Security to enforce on your controllers and actions
 	configuration.For&lt;HomeController>().Ignore();
-
 	configuration.For&lt;AccountController>().DenyAuthenticatedAccess();
 	configuration.For&lt;AccountController>(x => x.LogOff()).DenyAnonymousAccess();
 });
 
 GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
 </code></pre>
-				
+
+<h3>An extended example</h3>
+<p><em>The example is based on the Internet Application template for ASP.NET MVC 3 with the addition of a Blog controller and a security helper class.</em></p>
+<pre><code>
+SecurityConfigurator.Configure(configuration =>
+{
+	// Let Fluent Security know how to get the authentication status of the current user
+	configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
+
+	// Let Fluent Security know how to get the roles for the current user
+	configuration.GetRolesFrom(() => MySecurityHelper.GetCurrentUserRoles());
+
+	// This is where you set up the policies you want Fluent Security to enforce
+	configuration.For&lt;HomeController>().Ignore();
+
+	configuration.For&lt;AccountController>().DenyAuthenticatedAccess();
+	configuration.For&lt;AccountController>(x => x.LogOff()).DenyAnonymousAccess();
+
+	configuration.For&lt;BlogController>(x => x.Index()).Ignore();
+	configuration.For&lt;BlogController>(x => x.AddPost()).RequireRole(BlogRole.Writer);
+	configuration.For&lt;BlogController>(x => x.AddComment()).DenyAnonymousAccess();
+	configuration.For&lt;BlogController>(x => x.DeleteComments()).RequireRole(BlogRole.Writer);
+	configuration.For&lt;BlogController>(x => x.PublishPosts()).RequireRole(BlogRole.Owner);
+});
+
+GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
+</code></pre>
+
+<p></p>
+	
 <h2>Policies</h2>
 <p>Fluent Security provides a small set of policies that should be enough for the basic scenarios.</p>
 <dl>
@@ -48,16 +64,19 @@ GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
 	<dt><strong>IgnorePolicy</strong></dt>
 	<dd>All users are allowed.</dd>
 </dl>
+
+<h3>Create your own policy</h3>
+<p>If needed, you can create your own policies by implementing the interface ISecurityPolicy. You can then add the policy to your configuration like this:<br />
+<code>configuration.For&lt;SomeController>().AddPolicy(new MyCustomPolicy());</code>.</p>
 				
-<p>If needed you can create your own policies by implementing the interface ISecurityPolicy.</p>
-<!-- TODO: Show example implementation of interface and how to add it to the configuration (.AddPolicy(new ExamplePolicy())) -->
-				
-<h2>Configuration in depth</h2>
+<h2>Configuration</h2>
 
 <h3>Bootstrapping</h3>
-<p>Add the action filter HandleSecurityAttribute to your global filters collection.</p>
+<p>The part that enforces your policies is the action filter called HandleSecurityAttribute. When you add it to your global filters collection, make sure that you put your call to <code>SecurityConfigurator.Configure(...)</code> before registering the action filter or it will blow up.</p>
 <p><code>GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);</code></p>
-<p>Make sure that you put your call to <code>SecurityConfigurator.Configure(...)</code> before registering the action filter or it will blow up.</p>
+
+<h3>Ignoring missing configurations</h3>
+<p>By default Fluent Security will throw an exception if a missing configuration is encountered for a controller action. If you don't want Fluent Security to handle security for all controllers you can tell it to ignore missing configurations. You can do this by adding <code>configuration.IgnoreMissingConfiguration();</code> to your configuration expression.</p>
 
 <h2>Testing</h2>
 <p>The <a href="http://nuget.org/List/Packages/FluentSecurity.TestHelper">FluentSecurity.TestHelper</a> project will help you get the configuration you want and enables you to testdrive your applicaiton like you would with any other part of your system. It can be used with any of the major testing frameworks (like <strong>NUnit, MbUnit, xUnit.net and MS Test</strong>).</p>
