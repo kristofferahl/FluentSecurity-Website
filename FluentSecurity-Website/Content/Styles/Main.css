@@ -24,8 +24,9 @@ code {font-size: 13px; font-family: consolas; font-weight: bold;}
 #menu { overflow: hidden; padding: 40px 20px 20px 20px; background: url(../images/content.png) repeat; }
 #menu li { float: left; font-size: 1.3em; text-transform: uppercase; }
 #menu li a { margin: 0 50px 0 0; color: #666; font-weight: normal; border-bottom: none; }
-#menu li a.current,
-#menu li a:hover { color: #fff; }
+#menu li a:hover,
+#menu li a:focus,
+#menu li strong a { color: #fff; }
 #pitch {position: relative; clear: both; background: #fff url(../images/pitch-fs.jpg) no-repeat; height: 228px; overflow: hidden; margin: 0 0 30px; padding: 30px 460px 0 30px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; border: solid 3px #333;}
 #pitch #logo { float: left; margin: 5px 20px 0 0; }
 #pitch h1 { font-size: 2.4em; font-weight: bold; color: #333; margin: 0 0 20px; }
