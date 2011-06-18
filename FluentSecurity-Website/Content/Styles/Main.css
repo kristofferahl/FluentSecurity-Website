@@ -52,11 +52,12 @@ input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;
 #menu li a:hover,
 #menu li a:focus,
 #menu li strong a { color: #fff; }
-#pitch {position: relative; clear: both; background: #fff url(../images/pitch-fs.jpg) no-repeat; height: 228px; overflow: hidden; margin: 0 0 30px; padding: 30px 460px 0 30px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; border: solid 3px #333;}
+#pitch {position: relative; clear: both; background: #fff url(../images/pitch-fs.jpg) no-repeat; height: 228px; margin: 0 0 30px; padding: 30px 460px 0 30px; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px; border: solid 3px #333;}
 #pitch #logo { float: left; margin: 5px 20px 0 0; }
 #pitch h1 { font-size: 2.4em; font-weight: bold; color: #333; margin: 0 0 20px; }
 #pitch h1 a { color: #e69500; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; border-bottom: none; }
 #pitch h1 span { color: #000; }
+#pitch #current-version {position: absolute; right: 20px; top: 265px; font-weight: bold;}
 #pitch #mvc-version {position: absolute; right: 0; top: 0; height: 149px; width: 149px; background: transparent url(../images/ASP-NET-MVC-Version.png) no-repeat;}
 #pitch #mvc-version span {position: absolute; left: -999em; top: -999em;}
 #pitch .elevator-pitch { color: #666; font-size: 1.3em; line-height: 1.6em; font-style: italic; }

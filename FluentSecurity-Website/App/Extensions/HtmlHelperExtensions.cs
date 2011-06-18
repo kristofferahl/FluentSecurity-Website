@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace FluentSecurity.Website.App.Extensions
 {
@@ -84,6 +87,62 @@ namespace FluentSecurity.Website.App.Extensions
 			}
 
 			return htmlHelper.ViewContext.HttpContext.Request.Path;
+		}
+
+		public static MvcHtmlString DisplayCurrentVersion(this HtmlHelper htmlHelper)
+		{
+			const string format = @"<div id=""current-version"">Version {0}</div>";
+			const string currentVersionCacheKey = "FluentSecurity-CurrentVersion";
+
+			string version;
+			var cachedVersion = HttpRuntime.Cache.Get(currentVersionCacheKey);
+			if (cachedVersion == null)
+			{
+				version = GetVersionFromGithub() ?? GetVersionFromAppSettings();
+				HttpRuntime.Cache.Insert(
+					currentVersionCacheKey,
+					version,
+					null,
+					DateTime.Now.AddDays(1),
+					TimeSpan.Zero);
+			}
+			else
+			{
+				version = cachedVersion.ToString();
+			}
+
+			var versionHtml = String.Format(format, version);
+			return MvcHtmlString.Create(versionHtml);
+		}
+
+		private static string GetVersionFromAppSettings()
+		{
+			return ConfigurationManager.AppSettings["FluentSecurity.LastKnownVersion"];
+		}
+
+		private static string GetVersionFromGithub()
+		{
+			try
+			{
+				var xml = XDocument.Load("https://raw.github.com/kristofferahl/FluentSecurity/master/Build/Scripts/Build.build");
+				var root = xml.Root;
+				if (root != null)
+				{
+					var properties = root.Elements().Where(e => e.Name.LocalName == "property" && e.HasAttributes);
+					if (properties.Any())
+					{
+						var versionProperty = properties.SingleOrDefault(p => p.FirstAttribute.Value == "project.version.label");
+						if (versionProperty != null)
+						{
+							var versionAttribute = versionProperty.Attribute("value");
+							if (versionAttribute != null)
+								return versionAttribute.Value;
+						}
+					}
+				}
+			}
+			catch {}
+			return null;
 		}
 	}
 }
