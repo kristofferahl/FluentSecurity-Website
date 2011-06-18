@@ -1,5 +1,5 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using FluentSecurity.Website.Models;
 
 namespace FluentSecurity.Website.Controllers
 {
@@ -12,6 +12,22 @@ namespace FluentSecurity.Website.Controllers
 
 		public ActionResult GettingStarted()
 		{
+			return View();
+		}
+
+		public ActionResult Contact()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Contact(ContactEditModel inModel)
+		{
+			if (ModelState.IsValid)
+			{
+				
+			}
 			return View();
 		}
 
