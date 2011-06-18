@@ -9,8 +9,9 @@
 </address>
 
 <h3>Get in touch</h3>
+@if (Model.EmailSent == false) {
 <p>Using Fluent Security or have a question about it, <strong>I'd love to hear from you</strong>!</p>
-@using (Html.BeginForm()) {
+using (Html.BeginForm()) {
 <fieldset>
 	<legend>Contact</legend>
 	<p class="form-item">
@@ -38,4 +39,6 @@
 		<input type="submit" value="Send message" />
 	</p>
 </fieldset>
+}} else {
+<p class="thanks"><strong>Thanks for getting in touch, I'll do my best to reply as soon as possible.</strong></p>
 }

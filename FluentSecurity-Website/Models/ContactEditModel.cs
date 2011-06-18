@@ -8,5 +8,7 @@ namespace FluentSecurity.Website.Models
 		[Required] public string Email { get; set; }
 		[Required] public string Subject { get; set; }
 		[Required] public string Message { get; set; }
+
+		public bool EmailSent { get; set; }
 	}
 }
