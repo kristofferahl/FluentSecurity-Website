@@ -18,6 +18,31 @@ dd {margin-left: 1em;}
 dd + dt {margin-top: 1em;}
 pre {margin-bottom: 1em; padding: 1em 3em 3em 3em; background: url(../images/content.png) repeat; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px;}
 code {font-size: 13px; font-family: consolas; font-weight: bold;}
+address {font-style: normal;}
+fieldset {padding: 20px; border: dotted 1px #E69500; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;}
+legend {padding: .5em 1em; font-weight: bold; color: #E69500;}
+label {display: block;}
+input[type=text],
+textarea {width: 20em; margin-top: .1em; padding: .4em; background-color: #e6e6e6; border: solid 2px #333; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;}
+textarea {width: 30em;}
+input[type="submit"] 
+{
+	padding: 5px 10px;
+	color: #555;
+	background: #c6c6c6;
+	background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #C6C6C6), color-stop(0.65, #D1D1D1), color-stop(0.99, #EBEBEB), color-stop(1, #fff));
+	background: -moz-linear-gradient(center bottom, #C6C6C6 0%, #D1D1D1 65%, #EBEBEB 99%, #fff 100%);
+	border: 1px solid #aaa;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	font-family: Calibri, Arial, Sans-Serif;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+input[type="submit"]:hover,
+input[type="submit"]:active,
+input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;}
 
 #wrapper { width: 984px; margin: auto; }
 #header {overflow: hidden;}
@@ -53,6 +78,7 @@ code {font-size: 13px; font-family: consolas; font-weight: bold;}
 #footer a { margin: 0 10px 0 0; padding: 0 0 1px; font-weight: normal; }
 #footer p { margin: 0 0 8px; }
 
+.vcard {font-size: 1.2em;}
 .link { color: #fff; background: #221C0F; padding: 5px 10px; font-size: .9em; text-transform: uppercase; border-bottom: none; }
 .col { float: left; width: 292px; margin: 0 30px 15px 0; }
 .col.last { float: right; margin-right: 0; }
@@ -64,6 +90,9 @@ code {font-size: 13px; font-family: consolas; font-weight: bold;}
 border-bottom-right-radius: 20px;
 border-bottom-left-radius: 20px;
 }
+.form-actions {margin-bottom: 0;}
+.field-validation-error {color: #E69500;}
+.thanks {color: #E69500;}
 
 .commandWrapper {
 background:#d6d6d6;

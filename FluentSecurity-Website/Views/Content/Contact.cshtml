@@ -1,0 +1,44 @@
+﻿@model ContactEditModel
+@{
+    ViewBag.Title = "Contact : Fluent Security";
+}
+<h2>Contact</h2>
+<address class="vcard">
+	<a href="http://www.fluentsecurity.net/" class="org url">Fluent Security</a> - <a href="http://www.77dynamite.com/" class="fn">Kristoffer Ahl</a><br />
+	Email: <a href="mailto:mail@fluentsecurity.net" class="email">mail@fluentsecurity.net</a>
+</address>
+
+<h3>Get in touch</h3>
+@if (Model.EmailSent == false) {
+<p>Using Fluent Security or have a question about it, <strong>I'd love to hear from you</strong>!</p>
+using (Html.BeginForm()) {
+<fieldset>
+	<legend>Contact</legend>
+	<p class="form-item">
+		@Html.LabelFor(x => x.Name, "Your name")
+		@Html.TextBoxFor(x => x.Name)
+		@Html.ValidationMessageFor(x => x.Name)
+	</p>
+	<p class="form-item">
+		@Html.LabelFor(x => x.Email, "Your email address")
+		@Html.TextBoxFor(x => x.Email, new { @class = "email" })
+		@Html.ValidationMessageFor(x => x.Email)
+	</p>
+	<p class="form-item">
+		@Html.LabelFor(x => x.Subject)
+		@Html.TextBoxFor(x => x.Subject)
+		@Html.ValidationMessageFor(x => x.Subject)
+	</p>
+	<p class="form-item">
+		@Html.LabelFor(x => x.Message)
+		@Html.TextAreaFor(x => x.Message, new { rows = 5, cols = 30 })
+		@Html.ValidationMessageFor(x => x.Message)
+	</p>
+	<p class="form-actions">
+		@Html.AntiForgeryToken()
+		<input type="submit" value="Send message" />
+	</p>
+</fieldset>
+}} else {
+<p class="thanks"><strong>Thanks for getting in touch, I'll do my best to reply as soon as possible.</strong></p>
+}

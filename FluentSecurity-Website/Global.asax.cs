@@ -20,6 +20,7 @@ namespace FluentSecurity.Website
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.RouteFor<ContentController>(x => x.Contact(), "contact");
 			routes.RouteFor<ContentController>(x => x.GettingStarted(), "getting-started");
 			routes.RouteFor<ContentController>(x => x.Index(), "");
 
