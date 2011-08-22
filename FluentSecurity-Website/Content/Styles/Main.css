@@ -48,7 +48,7 @@ input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;
 #header {overflow: hidden;}
 #menu { overflow: hidden; padding: 40px 20px 20px 20px; background: url(../images/content.png) repeat; }
 #menu li { float: left; font-size: 1.3em; text-transform: uppercase; }
-#menu li a { margin: 0 47px 0 0; color: #666; font-weight: normal; border-bottom: none; }
+#menu li a { margin: 0 38px 0 0; color: #666; font-weight: normal; border-bottom: none; }
 #menu li a:hover,
 #menu li a:focus,
 #menu li strong a { color: #fff; }
