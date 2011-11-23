@@ -48,7 +48,16 @@
 		</li>
 	</ul>
 </div>
-<div id="github">
+<div id="extras">
+	<div class="twitter col">
+		<h3>FluentSecurity on twitter</h3>
+		@foreach (var item in Model.HashtagTweets)
+		{
+			<div class="article">
+				@Html.DisplayFor(x => item)
+			</div>
+		}
+	</div>
 	<div class="issues col">
 		<h3>Issues &amp; feature requests</h3>
 		@foreach (var item in Model.Issues)
@@ -61,7 +70,7 @@
 			</div>
 		}
 	</div>
-	<div class="commits col">
+	<div class="commits col last">
 		<h3>Github commits (develop)</h3>
 		@foreach (var item in Model.Commits)
 		{
@@ -72,18 +81,5 @@
 				<p class="short">@item.Message</p>
 			</div>
 		}
-	</div>
-	<div class="downloads col last">
-		<h3>Downloads</h3>
-		<p>Coming soon...</p>
-		@*@foreach (var item in Model.Commits)
-		{
-			<div class="article">
-				<p class="date">@item.Date</p>
-				<p class="author">@item.Author</p>
-				<h4><a href="@item.Url">@item.Id</a></h4>
-				<p class="short">@item.Message</p>
-			</div>
-		}*@
 	</div>
 </div>

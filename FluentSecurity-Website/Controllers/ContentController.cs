@@ -5,15 +5,18 @@ using Postal;
 
 namespace FluentSecurity.Website.Controllers
 {
+	[OutputCache(Duration = 600)] // 10 minutes
     public class ContentController : Controller
     {
     	private readonly IGithubService _gihubService;
+    	private readonly ITwitterService _twitterService;
     	
 		private const string TempdataKey = "Model";
 
     	public ContentController()
     	{
     		_gihubService = new GithubService();
+    		_twitterService = new TwitterService();
     	}
 
     	public ActionResult Index()
@@ -21,6 +24,7 @@ namespace FluentSecurity.Website.Controllers
 			var pageModel = new IndexPageModel();
     		pageModel.Issues.AddRange(_gihubService.Issues(3));
     		pageModel.Commits.AddRange(_gihubService.Commits(4));
+    		pageModel.HashtagTweets.AddRange(_twitterService.Hashtag("FluentSecurity", 5));
     		return View(pageModel);
         }
 

@@ -46,6 +46,9 @@
     <Reference Include="GithubSharp.Plugins.LogProviders.SimpleLogProvider">
       <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.LogProviders.SimpleLogProvider.dll</HintPath>
     </Reference>
+    <Reference Include="LinqToTwitter">
+      <HintPath>..\packages\LinqToTwitter.2.0.21\lib\net40\LinqToTwitter.dll</HintPath>
+    </Reference>
     <Reference Include="Postal">
       <HintPath>..\packages\postal.0.6.1\lib\net40\Postal.dll</HintPath>
     </Reference>
@@ -87,11 +90,15 @@
     <Compile Include="App\Extensions\RouteHelper.cs" />
     <Compile Include="App\Extensions\StringExtensions.cs" />
     <Compile Include="App\Extensions\TagBuilderExtensions.cs" />
+    <Compile Include="App\Extensions\DateTimeExtensions.cs" />
     <Compile Include="App\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="App\Services\GithubService.cs" />
     <Compile Include="App\Services\IGithubService.cs" />
     <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="App\Services\ITwitterService.cs" />
+    <Compile Include="App\Services\TwitterService.cs" />
     <Compile Include="Models\CommitListModel.cs" />
+    <Compile Include="Models\TwitterHashtagListModel.cs" />
     <Compile Include="Models\IndexPageModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -119,6 +126,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <None Include="Views\Shared\DisplayTemplates\TwitterHashtagListModel.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

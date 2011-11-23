@@ -1,0 +1,4 @@
+﻿@model TwitterHashtagListModel
+<p class="date">@Model.Date.TimePastSince(-2, "{0} days ago", "{0} day ago", "about {0} hours ago", "{0} hour ago").ToHtmlString()</p>
+<p class="author"><a href="@Model.AuthorUrl">@Model.Author</a></p>
+<div class="short">@Html.Raw(Model.Content)</div>

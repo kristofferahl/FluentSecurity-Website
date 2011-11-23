@@ -48,7 +48,7 @@ input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;
 #header {overflow: hidden;}
 #menu { overflow: hidden; padding: 40px 20px 20px 20px; background: url(../images/content.png) repeat; }
 #menu li { float: left; font-size: 1.3em; text-transform: uppercase; }
-#menu li a { margin: 0 38px 0 0; color: #666; font-weight: normal; border-bottom: none; }
+#menu li a { margin: 0 38px 0 0; color: #747474; font-weight: normal; border-bottom: none; }
 #menu li a:hover,
 #menu li a:focus,
 #menu li strong a { color: #fff; }
@@ -79,16 +79,18 @@ input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;
 #main #why .reason h3 {margin: 0; font-size: 1.3em; color: #dedede;}
 #main #why .reason p {margin: 0; padding: 3px 0; font-size: .9em;}
 
-#main #github .date { float: left; font-size: .84em; margin: 0 0 3px; }
-#main #github .author { float: right; font-size: .84em; margin: 0 0 3px; }
-#main #github h4 { clear: both; }
-#main #github .commits h4 { font-size: .84em; }
+#main #extras .date { float: left; font-size: .84em; margin: 0 0 3px; }
+#main #extras .author { float: right; font-size: .84em; margin: 0 0 3px; }
+#main #extras h4 { clear: both; font-size: 1em; }
+#main #extras .short { clear: both; line-height: 1.6em; }
+#main #extras .twitter .short a { clear: both; }
+#main #extras .twitter .short em { font-style: normal; }
 
 #footer { clear: both; background: url(../images/line.gif) repeat-x; padding: 20px 20px 10px; font-size: .9em; }
 #footer a { margin: 0 10px 0 0; padding: 0 0 1px; font-weight: normal; }
 #footer p { margin: 0 0 8px; }
 
-.vcard {font-size: 1.2em;}
+.vcard {font-size: 1em;}
 .link { color: #fff; background: #221C0F; padding: 5px 10px; font-size: .9em; text-transform: uppercase; border-bottom: none; }
 .col { float: left; width: 292px; margin: 0 30px 15px 0; }
 .col.last { float: right; margin-right: 0; }
