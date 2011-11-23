@@ -34,6 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GithubSharp.Core">
+      <HintPath>..\packages\GithubSharp.Core.0.0.5.1\lib\GithubSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GithubSharp.Plugins.CacheProviders.ApplicationCacher">
+      <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.CacheProviders.ApplicationCacher.dll</HintPath>
+    </Reference>
+    <Reference Include="GithubSharp.Plugins.CacheProviders.WebCache">
+      <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.CacheProviders.WebCache.dll</HintPath>
+    </Reference>
+    <Reference Include="GithubSharp.Plugins.LogProviders.SimpleLogProvider">
+      <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.LogProviders.SimpleLogProvider.dll</HintPath>
+    </Reference>
     <Reference Include="Postal">
       <HintPath>..\packages\postal.0.6.1\lib\net40\Postal.dll</HintPath>
     </Reference>
@@ -73,13 +85,19 @@
     <Compile Include="App\Extensions\MvcExtensions.cs" />
     <Compile Include="App\Extensions\RouteCollectionExtensions.cs" />
     <Compile Include="App\Extensions\RouteHelper.cs" />
+    <Compile Include="App\Extensions\StringExtensions.cs" />
     <Compile Include="App\Extensions\TagBuilderExtensions.cs" />
     <Compile Include="App\Extensions\UrlHelperExtensions.cs" />
+    <Compile Include="App\Services\GithubService.cs" />
+    <Compile Include="App\Services\IGithubService.cs" />
     <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Models\CommitListModel.cs" />
+    <Compile Include="Models\IndexPageModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactEditModel.cs" />
+    <Compile Include="Models\IssueListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

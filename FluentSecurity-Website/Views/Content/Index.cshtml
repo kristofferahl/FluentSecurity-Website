@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IndexPageModel
+@{
     ViewBag.Title = "Fluent Security : Fluent security configuration for ASP.NET MVC";
 }
 @section Highlights {
@@ -18,65 +19,6 @@
 		<a class="link" href="https://github.com/downloads/kristofferahl/FluentSecurity/FluentSecurity-0.9.2.zip">Download</a>
 	</div>
 }
-@*<div class="col">
-	<h3>Resources</h3>
-	<div class="article">
-		<p class="date">March, 2010</p>
-		<h4><a href="http://www.accidentlawyersnc.com/">Truck Accident Lawyers</a></h4>
-		<p class="short">Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat.</p>
-	</div>
-	<div class="article">
-		<p class="date">February, 2010</p>
-		<h4><a href="http://www.mccabelawoffices.com/">Car Accident Lawyers</a></h4>
-		<p class="short">Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat.</p>
-	</div>
-	<div class="article">
-		<p class="date">January, 2010</p>
-		<h4><a href="http://www.hardisonwood.com/">Car Accident Attorneys</a></h4>
-		<p class="short">Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat.</p>
-	</div>
-</div>
-<div class="col">
-	<h3>Github commits</h3>
-	<div class="article">
-		<p class="date">March, 2010</p>
-		<h4><a href="http://www.truckingattorney.com/">Truck Accident Attorneys</a></h4>
-		<p class="short">Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat.</p>
-	</div>
-	<div class="article">
-		<p class="date">February, 2010</p>
-		<h4><a href="http://www.lawyermarketinggroup.com/">Law Firm Marketing</a></h4>
-		<p class="short">Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat.</p>
-	</div>
-	<div class="article">
-		<p class="date">January, 2010</p>
-		<h4><a href="#">Nunc pellentesque a porta lacus</a></h4>
-		<p class="short">Quisque scelerisque purus quis eros sollicitudin gravida. Aliquam erat volutpat. Donec a sem consequat.</p>
-	</div>
-</div>
-<div class="col last">
-	<h3>Why Fluent Security</h3>
-	<div class="case">
-		<img src="/content/images/thumb.gif" alt="" />
-		<p><a href="#">Code based configuration</a> -<br />
-		No attributes or nasty xml cluttering up your code.</p>
-	</div>
-	<div class="case">
-		<img src="/content/images/thumb.gif" alt="" />
-		<p><a href="#">Customizable</a> -<br />
-		Don't like what's in the box? Write your own stuff and hook it in.</p>
-	</div>
-	<div class="case">
-		<img src="/content/images/thumb.gif" alt="" />
-		<p><a href="#">ASP.NET MVC 3 ready</a> -<br />
-		Built against the latest version of ASP.NET MVC.</p>
-	</div>
-	<div class="case">
-		<img src="/content/images/thumb.gif" alt="" />
-		<p><a href="#">Low impact</a> -<br />
-		....</p>
-	</div>
-</div>*@
 <div id="why">
 	<h2>Why Fluent Security</h2>
 	<ul>
@@ -105,4 +47,43 @@
 			<p>Fluent Security is used successfully in production and has a code coverage of 99%.</p>
 		</li>
 	</ul>
+</div>
+<div id="github">
+	<div class="issues col">
+		<h3>Issues &amp; feature requests</h3>
+		@foreach (var item in Model.Issues)
+		{
+			<div class="article">
+				<p class="date">@item.Created</p>
+				<p class="author">@item.User</p>
+				<h4><a href="@item.Url">@item.Id - @item.Title</a></h4>
+				<p class="short">@item.Text</p>
+			</div>
+		}
+	</div>
+	<div class="commits col">
+		<h3>Github commits (develop)</h3>
+		@foreach (var item in Model.Commits)
+		{
+			<div class="article">
+				<p class="date">@item.Date</p>
+				<p class="author">@item.Author</p>
+				<h4><a href="@item.Url">@item.Id</a></h4>
+				<p class="short">@item.Message</p>
+			</div>
+		}
+	</div>
+	<div class="downloads col last">
+		<h3>Downloads</h3>
+		<p>Coming soon...</p>
+		@*@foreach (var item in Model.Commits)
+		{
+			<div class="article">
+				<p class="date">@item.Date</p>
+				<p class="author">@item.Author</p>
+				<h4><a href="@item.Url">@item.Id</a></h4>
+				<p class="short">@item.Message</p>
+			</div>
+		}*@
+	</div>
 </div>

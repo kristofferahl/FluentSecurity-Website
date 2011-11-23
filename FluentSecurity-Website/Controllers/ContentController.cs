@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using FluentSecurity.Website.App.Services;
 using FluentSecurity.Website.Models;
 using Postal;
 
@@ -6,14 +7,24 @@ namespace FluentSecurity.Website.Controllers
 {
     public class ContentController : Controller
     {
-    	private const string TempdataKey = "Model";
+    	private readonly IGithubService _gihubService;
+    	
+		private const string TempdataKey = "Model";
+
+    	public ContentController()
+    	{
+    		_gihubService = new GithubService();
+    	}
 
     	public ActionResult Index()
         {
-            return View();
+			var pageModel = new IndexPageModel();
+    		pageModel.Issues.AddRange(_gihubService.Issues(3));
+    		pageModel.Commits.AddRange(_gihubService.Commits(4));
+    		return View(pageModel);
         }
 
-		public ActionResult GettingStarted()
+    	public ActionResult GettingStarted()
 		{
 			return View();
 		}

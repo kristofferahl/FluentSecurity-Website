@@ -69,12 +69,21 @@ input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;
 #main h2 + h3 {margin-top: 0;}
 #main .col h2,
 #main .col h3 {margin-top: 0;}
-#main #why .reason {float: left; width: 204px; height: 9em; padding: 0 20px 0 90px; background: url(../images/thumb.gif) no-repeat left 3px;}
-#main #why .reason h3 {margin: 0; font-size: 1.3em; color: #dedede;}
-#main #why .reason p {margin: 0; padding: 3px 0; font-size: .9em;}
+
 #main .short { padding: 0 0 15px 0; background: url(../images/line.gif) repeat-x left bottom; }
 #main .article a { color: #fff; font-weight: bold; }
 #main .date { font-size: .84em; margin: 0 0 3px; }
+
+#main #why { margin-bottom: 3em; overflow: auto; }
+#main #why .reason {float: left; width: 204px; height: 9em; padding: 0 20px 0 90px; background: url(../images/thumb.gif) no-repeat left 3px;}
+#main #why .reason h3 {margin: 0; font-size: 1.3em; color: #dedede;}
+#main #why .reason p {margin: 0; padding: 3px 0; font-size: .9em;}
+
+#main #github .date { float: left; font-size: .84em; margin: 0 0 3px; }
+#main #github .author { float: right; font-size: .84em; margin: 0 0 3px; }
+#main #github h4 { clear: both; }
+#main #github .commits h4 { font-size: .84em; }
+
 #footer { clear: both; background: url(../images/line.gif) repeat-x; padding: 20px 20px 10px; font-size: .9em; }
 #footer a { margin: 0 10px 0 0; padding: 0 0 1px; font-weight: normal; }
 #footer p { margin: 0 0 8px; }
