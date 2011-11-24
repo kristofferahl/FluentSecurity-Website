@@ -70,7 +70,8 @@ input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;
 #main .col h2,
 #main .col h3 {margin-top: 0;}
 
-#main .short { padding: 0 0 15px 0; background: url(../images/line.gif) repeat-x left bottom; }
+#main .article { min-height: 120px; margin-bottom: 15px; padding: 0 0 15px 0; background: url(../images/line.gif) repeat-x left bottom; }
+#main .article p.short { margin-bottom: 0; }
 #main .article a { color: #fff; font-weight: bold; }
 #main .date { font-size: .84em; margin: 0 0 3px; }
 

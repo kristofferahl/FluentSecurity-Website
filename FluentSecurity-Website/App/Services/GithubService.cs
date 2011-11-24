@@ -27,7 +27,7 @@ namespace FluentSecurity.Website.App.Services
 				{
 					Author = commit.Author.Name,
 					Date = commit.AuthoredDate,
-					Message = commit.Message,
+					Message = commit.Message.Truncate(150),
 					Id = commit.Id,
 					Url = "http://github.com" + commit.URL
 				};
