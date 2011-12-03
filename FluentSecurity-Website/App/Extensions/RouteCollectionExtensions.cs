@@ -19,9 +19,16 @@ namespace FluentSecurity.Website.App.Extensions
 			return routeCollection.RouteFor(actionExpression, defaults, null, url);
 		}
 
-		public static RouteCollection RouteFor<TController>(this RouteCollection routeCollection, Expression<Func<TController, ActionResult>> actionExpression, object defaults, object constraints, string url) where TController : IController
+		public static RouteCollection RouteFor<TController>(this RouteCollection routeCollection, Expression<Func<TController, ActionResult>> actionExpression, object defaults, string url, string routeName) where TController : IController
 		{
-			var routeName = typeof(TController).GetControllerName() + "_" + actionExpression.GetActionName();
+			return routeCollection.RouteFor(actionExpression, defaults, null, url, routeName);
+		}
+
+		public static RouteCollection RouteFor<TController>(this RouteCollection routeCollection, Expression<Func<TController, ActionResult>> actionExpression, object defaults, object constraints, string url, string routeName = null) where TController : IController
+		{
+			if (routeName == null)
+				routeName = typeof(TController).GetControllerName() + "_" + actionExpression.GetActionName();
+			
 			routeCollection.MapRoute(routeName, url, defaults, constraints);
 
 			var route = (Route)routeCollection[routeName];

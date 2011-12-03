@@ -1,0 +1,7 @@
+﻿@model Kiwi.Markdown.Document
+@{
+    ViewBag.Title = @Model.Title;
+}
+<div id="wiki">
+    <div class="entry">@Html.Raw(Model.Content)</div>
+</div>

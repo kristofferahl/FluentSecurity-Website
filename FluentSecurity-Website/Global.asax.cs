@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using FluentSecurity.Website.App.Extensions;
 using FluentSecurity.Website.Controllers;
+using Kiwi.Markdown;
+using Kiwi.Markdown.ContentProviders;
 
 namespace FluentSecurity.Website
 {
@@ -11,6 +13,8 @@ namespace FluentSecurity.Website
 
 	public class MvcApplication : System.Web.HttpApplication
 	{
+		public static MarkdownService MarkdownService { get; private set; }
+
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
 			filters.Add(new HandleErrorAttribute());
@@ -19,6 +23,9 @@ namespace FluentSecurity.Website
 		public static void RegisterRoutes(RouteCollection routes)
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+			routes.RouteFor<WikiController>(x => x.Doc(""), new { docId = "home" }, "wiki", "Wiki_Home");
+			routes.RouteFor<WikiController>(x => x.Doc(""), new { docId = "home" }, "wiki/{*docId}", "Wiki_Document");
 
 			routes.RouteFor<ContentController>(x => x.Contact(), "contact");
 			routes.RouteFor<ContentController>(x => x.GettingStarted(), "getting-started");
@@ -36,6 +43,8 @@ namespace FluentSecurity.Website
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+
+			MarkdownService = new MarkdownService(new FileContentProvider(Server.MapPath("/MarkdownFiles")));
 		}
 
 		protected void Application_Error()

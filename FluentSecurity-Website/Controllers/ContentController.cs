@@ -5,7 +5,7 @@ using Postal;
 
 namespace FluentSecurity.Website.Controllers
 {
-	[OutputCache(Duration = 600)] // 10 minutes
+	[OutputCache(CacheProfile = "ContentCache")]
     public class ContentController : Controller
     {
     	private readonly IGithubService _gihubService;

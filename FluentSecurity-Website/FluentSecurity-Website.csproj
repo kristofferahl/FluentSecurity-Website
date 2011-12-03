@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ColorCode">
+      <HintPath>..\packages\ColorCode.1.0.1\lib\ColorCode.dll</HintPath>
+    </Reference>
     <Reference Include="GithubSharp.Core">
       <HintPath>..\packages\GithubSharp.Core.0.0.5.1\lib\GithubSharp.Core.dll</HintPath>
     </Reference>
@@ -46,8 +49,14 @@
     <Reference Include="GithubSharp.Plugins.LogProviders.SimpleLogProvider">
       <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.LogProviders.SimpleLogProvider.dll</HintPath>
     </Reference>
+    <Reference Include="Kiwi.Markdown">
+      <HintPath>..\packages\Kiwi.Markdown.0.2.1\lib\net40\Kiwi.Markdown.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToTwitter">
       <HintPath>..\packages\LinqToTwitter.2.0.21\lib\net40\LinqToTwitter.dll</HintPath>
+    </Reference>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
     </Reference>
     <Reference Include="Postal">
       <HintPath>..\packages\postal.0.6.1\lib\net40\Postal.dll</HintPath>
@@ -97,6 +106,7 @@
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="App\Services\ITwitterService.cs" />
     <Compile Include="App\Services\TwitterService.cs" />
+    <Compile Include="Controllers\WikiController.cs" />
     <Compile Include="Models\CommitListModel.cs" />
     <Compile Include="Models\TwitterHashtagListModel.cs" />
     <Compile Include="Models\IndexPageModel.cs" />
@@ -126,7 +136,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <None Include="Views\Shared\DisplayTemplates\TwitterHashtagListModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\TwitterHashtagListModel.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -142,6 +152,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Wiki\Doc.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
