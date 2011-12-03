@@ -16,7 +16,7 @@ dl {margin-bottom: 2em;}
 dt, dd {padding: .2em 0;}
 dd {margin-left: 1em;}
 dd + dt {margin-top: 1em;}
-pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; background: url(../images/content.png) repeat; -moz-border-radius: 20px; -webkit-border-radius: 20px; border-radius: 20px;}
+pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; background: #d6d6d6; font-size: 13px; font-family: consolas; font-weight: bold;}
 code {font-size: 13px; font-family: consolas; font-weight: bold;}
 address {font-style: normal;}
 fieldset {padding: 20px; border: solid 1px #E69500; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;}

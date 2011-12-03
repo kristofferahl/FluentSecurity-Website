@@ -5,11 +5,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using ColorCode;
 
 namespace FluentSecurity.Website.App.Extensions
 {
 	public static class HtmlHelperExtensions
 	{
+		public static ILanguage DefaultCodeLanguage = Languages.CSharp;
+		public static ICodeColorizer SyntaxHightlighter = new CodeColorizer();
+
+		public static MvcHtmlString Code(this HtmlHelper htmlHelper, string code, ILanguage language = null)
+		{
+			if (language == null)
+				language = DefaultCodeLanguage;
+
+			var hightLightedCode = SyntaxHightlighter.Colorize(code, language);
+
+			return MvcHtmlString.Create(hightLightedCode);
+		}
+
 		public static MvcHtmlString Navigation(this HtmlHelper htmlHelper, Func<IEnumerable<MvcHtmlString>> items, object attributes = null, string listElement = "ul")
 		{
 			var nonEmptyItems = items().Where(x => !String.IsNullOrWhiteSpace(x.ToHtmlString()));

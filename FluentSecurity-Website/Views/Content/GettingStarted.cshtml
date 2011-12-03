@@ -1,26 +1,27 @@
-﻿@{
+﻿@using ColorCode
+@{
     ViewBag.Title = "Getting started : Fluent Security";
 }
 <h2>Getting started</h2>
 
 <h3>The bare essentials</h3>
 <p>Add the following at the end of Application_Start in your Global.asax and you're good to go!<br /><em>The example is based on the Internet Application template for ASP.NET MVC 3.</em></p>
-<pre><code>SecurityConfigurator.Configure(configuration =>
+@Html.Code(@"SecurityConfigurator.Configure(configuration =>
 {
 	// Let Fluent Security know how to get the authentication status of the current user
 	configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
 
 	// This is where you set up the policies you want Fluent Security to enforce on your controllers and actions
-	configuration.For&lt;HomeController>().Ignore();
-	configuration.For&lt;AccountController>().DenyAuthenticatedAccess();
-	configuration.For&lt;AccountController>(x => x.LogOff()).DenyAnonymousAccess();
+	configuration.For<HomeController>().Ignore();
+	configuration.For<AccountController>().DenyAuthenticatedAccess();
+	configuration.For<AccountController>(x => x.LogOff()).DenyAnonymousAccess();
 });
 
-GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);</code></pre>
+GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);")
 
 <h3>An extended example</h3>
 <p><em>The example is based on the Internet Application template for ASP.NET MVC 3 with the addition of a Blog controller and a security helper class.</em></p>
-<pre><code>SecurityConfigurator.Configure(configuration =>
+@Html.Code(@"SecurityConfigurator.Configure(configuration =>
 {
 	// Let Fluent Security know how to get the authentication status of the current user
 	configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
@@ -29,19 +30,19 @@ GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);</code></pre>
 	configuration.GetRolesFrom(() => MySecurityHelper.GetCurrentUserRoles());
 
 	// This is where you set up the policies you want Fluent Security to enforce
-	configuration.For&lt;HomeController>().Ignore();
+	configuration.For<HomeController>().Ignore();
 
-	configuration.For&lt;AccountController>().DenyAuthenticatedAccess();
-	configuration.For&lt;AccountController>(x => x.LogOff()).DenyAnonymousAccess();
+	configuration.For<AccountController>().DenyAuthenticatedAccess();
+	configuration.For<AccountController>(x => x.LogOff()).DenyAnonymousAccess();
 
-	configuration.For&lt;BlogController>(x => x.Index()).Ignore();
-	configuration.For&lt;BlogController>(x => x.AddPost()).RequireRole(BlogRole.Writer);
-	configuration.For&lt;BlogController>(x => x.AddComment()).DenyAnonymousAccess();
-	configuration.For&lt;BlogController>(x => x.DeleteComments()).RequireRole(BlogRole.Writer);
-	configuration.For&lt;BlogController>(x => x.PublishPosts()).RequireRole(BlogRole.Owner);
+	configuration.For<BlogController>(x => x.Index()).Ignore();
+	configuration.For<BlogController>(x => x.AddPost()).RequireRole(BlogRole.Writer);
+	configuration.For<BlogController>(x => x.AddComment()).DenyAnonymousAccess();
+	configuration.For<BlogController>(x => x.DeleteComments()).RequireRole(BlogRole.Writer);
+	configuration.For<BlogController>(x => x.PublishPosts()).RequireRole(BlogRole.Owner);
 });
 
-GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);</code></pre>
+GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);")
 
 <p></p>
 	
@@ -77,7 +78,7 @@ GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);</code></pre>
 <h2>Testing</h2>
 <p>The <a href="http://nuget.org/List/Packages/FluentSecurity.TestHelper">FluentSecurity.TestHelper</a> project will help you get the configuration you want and enables you to testdrive your applicaiton like you would with any other part of your system. It can be used with any of the major testing frameworks (like <strong>NUnit, MbUnit, xUnit.net and MS Test</strong>).</p>
 <p>To start writing tests for your Fluent Security configuration you need to add a reference to FluentSecurity.TestHelper or just install the <a href="http://nuget.org/List/Packages/FluentSecurity.TestHelper">FluentSecurity.TestHelper NuGet package</a>. Next you'll want to add a test fixture. Below is an example using NUnit.</p>
-<pre><code>[TestFixture]
+@Html.Code(@"[TestFixture]
 public class When_security_has_been_configured
 {
 	[Test]
@@ -89,17 +90,17 @@ public class When_security_has_been_configured
 		// Act
 		var results = SecurityConfiguration.Current.Verify(expectations =>
 		{
-			expectations.Expect&lt;HomeController>().Has&lt;IgnorePolicy>();
-			expectations.Expect&lt;AccountController>().Has&lt;DenyAuthenticatedAccessPolicy>();
-			expectations.Expect&lt;AccountController>(x => x.LogOff())
-						.Has&lt;DenyAnonymousAccessPolicy>()
-						.DoesNotHave&lt;DenyAuthenticatedAccessPolicy>();
+			expectations.Expect<HomeController>().Has<IgnorePolicy>();
+			expectations.Expect<AccountController>().Has<DenyAuthenticatedAccessPolicy>();
+			expectations.Expect<AccountController>(x => x.LogOff())
+						.Has<DenyAnonymousAccessPolicy>()
+						.DoesNotHave<DenyAuthenticatedAccessPolicy>();
 		});
 
 		// Assert
 		Assert.That(results.Valid(), results.ErrorMessages());
 	}
-}</code></pre>
+}")
 <p>You need to make sure that Fluent Security is configured before you can get to the current configuration so that is the first thing you'll do. In this case <code>Bootstrapper.ConfigureSecurity()</code> is just a wrapper around <code>SecurityConfigurator.Configure(...)</code> and could be named whatever you want. Putting your configuration in a bootstrapper class like this will make it easier for you to test Fluent Security in isolation.</p>
 <p>Now we can get to the current configuration using <code>SecurityConfiguration.Current</code>. Next we use the <code>Verify(expectations => {})</code> extensions method passing in our expectations like shown in the above example.</p>
 <p>The Verify extension returns an <code>@("IEnumerable<ExpectationResult>")</code> with an expectation result for each expectation. To find out if our expectations are met we use the extension method <code>Valid()</code>. The extension method <code>ErrorMessages()</code> will give you a string representation of any expectations that has not been met.</p>
