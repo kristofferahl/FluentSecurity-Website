@@ -14,6 +14,7 @@
 	// This is where you set up the policies you want Fluent Security to enforce on your controllers and actions
 	configuration.For<HomeController>().Ignore();
 	configuration.For<AccountController>().DenyAuthenticatedAccess();
+	configuration.For<AccountController>(x => x.ChangePassword()).DenyAnonymousAccess();
 	configuration.For<AccountController>(x => x.LogOff()).DenyAnonymousAccess();
 });
 
@@ -33,6 +34,7 @@ GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);")
 	configuration.For<HomeController>().Ignore();
 
 	configuration.For<AccountController>().DenyAuthenticatedAccess();
+	configuration.For<AccountController>(x => x.ChangePassword()).DenyAnonymousAccess();
 	configuration.For<AccountController>(x => x.LogOff()).DenyAnonymousAccess();
 
 	configuration.For<BlogController>(x => x.Index()).Ignore();
