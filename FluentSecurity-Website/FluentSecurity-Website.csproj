@@ -49,9 +49,9 @@
     <Reference Include="GithubSharp.Plugins.LogProviders.SimpleLogProvider">
       <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.LogProviders.SimpleLogProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Kiwi.Markdown, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kiwi.Markdown, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kiwi.Markdown.0.3.0\lib\net40\Kiwi.Markdown.dll</HintPath>
+      <HintPath>..\packages\Kiwi.Markdown.0.4.0\lib\net40\Kiwi.Markdown.dll</HintPath>
     </Reference>
     <Reference Include="LinqToTwitter, Version=2.0.22.0, Culture=neutral, PublicKeyToken=957107be965c25d9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
