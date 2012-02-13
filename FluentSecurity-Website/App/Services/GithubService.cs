@@ -60,10 +60,15 @@ namespace FluentSecurity.Website.App.Services
 
 		private IEnumerable<Issue> GetIssues()
 		{
+			var issues = Enumerable.Empty<Issue>();
+			
 			var api = new BaseAPI(CacheProvider, SimpleLogProvider);
 			var url = string.Format("issues/list/{0}/{1}/{2}", Username, RepositoryName, "open");
 			var result = api.ConsumeJsonUrl<GithubSharp.Core.Models.Internal.IssuesCollection>(url);
-			var issues = result.Issues ?? Enumerable.Empty<Issue>();
+			
+			if (result != null && result.Issues != null)
+				issues = result.Issues;
+			
 			return issues;
 		}
 	}
