@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentSecurity.Website.App.Extensions;
 using FluentSecurity.Website.Models;
@@ -53,21 +54,35 @@ namespace FluentSecurity.Website.App.Services
 
 		private IEnumerable<Commit> GetCommits()
 		{
+			var commits = Enumerable.Empty<Commit>();
+
 			var commitsAPI = new Commits(CacheProvider, SimpleLogProvider);
-			var commits = commitsAPI.CommitsForBranch(Username, RepositoryName, "develop") ?? new List<Commit>();
+			try
+			{
+				commits = commitsAPI.CommitsForBranch(Username, RepositoryName, "develop") ?? Enumerable.Empty<Commit>();
+			}
+			catch (Exception) {}
+			
 			return commits;
 		}
 
 		private IEnumerable<Issue> GetIssues()
 		{
+			var issues = Enumerable.Empty<Issue>();
+
 			//var issuesAPI = new Issues(_cacheProvider, _simpleLogProvider);
 			//issuesAPI.Authenticate(_githubUser);
 			//var issues = issuesAPI.List("FluentSecurity", "kristofferahl", IssueState.Open) ?? new List<Issue>();
 
 			var api = new BaseAPI(CacheProvider, SimpleLogProvider);
 			var url = string.Format("issues/list/{0}/{1}/{2}", Username, RepositoryName, "open");
-			var result = api.ConsumeJsonUrl<GithubSharp.Core.Models.Internal.IssuesCollection>(url);
-			var issues = result.Issues ?? new List<Issue>();
+			
+			try
+			{
+				var result = api.ConsumeJsonUrl<GithubSharp.Core.Models.Internal.IssuesCollection>(url);
+				issues = result.Issues ?? Enumerable.Empty<Issue>();
+			}
+			catch (Exception) {}
 
 			return issues;
 		}
