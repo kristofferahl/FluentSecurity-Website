@@ -37,6 +37,9 @@
     <Reference Include="ColorCode, Version=1.0.1.62759, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\ColorCode.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="GithubSharp.Core">
       <HintPath>..\packages\GithubSharp.Core.0.0.5.1\lib\GithubSharp.Core.dll</HintPath>
     </Reference>
@@ -49,6 +52,12 @@
     <Reference Include="GithubSharp.Plugins.LogProviders.SimpleLogProvider">
       <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.LogProviders.SimpleLogProvider.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\packages\Glimpse.0.86\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Elmah">
+      <HintPath>..\packages\Glimpse.Elmah.0.9.7\lib\net40\Glimpse.Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Kiwi.Markdown, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\Kiwi.Markdown.dll</HintPath>
@@ -56,6 +65,9 @@
     <Reference Include="LinqToTwitter, Version=2.0.22.0, Culture=neutral, PublicKeyToken=957107be965c25d9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinqToTwitter.2.0.22\lib\net40\LinqToTwitter.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.11\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\MarkdownSharp.dll</HintPath>
@@ -130,7 +142,6 @@
     <Content Include="Content\Images\thumb.gif" />
     <Content Include="Global.asax" />
     <Content Include="google148a77af5c4b1070.html" />
-    <Content Include="License-Kiwi.txt" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
