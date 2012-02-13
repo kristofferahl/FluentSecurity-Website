@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ColorCode">
-      <HintPath>..\packages\ColorCode.1.0.1\lib\ColorCode.dll</HintPath>
+    <Reference Include="ColorCode, Version=1.0.1.62759, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\ColorCode.dll</HintPath>
     </Reference>
     <Reference Include="GithubSharp.Core">
       <HintPath>..\packages\GithubSharp.Core.0.0.5.1\lib\GithubSharp.Core.dll</HintPath>
@@ -49,16 +49,16 @@
     <Reference Include="GithubSharp.Plugins.LogProviders.SimpleLogProvider">
       <HintPath>..\packages\GithubSharp.Plugins.All.0.0.5.1\lib\GithubSharp.Plugins.LogProviders.SimpleLogProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Kiwi.Markdown, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kiwi.Markdown, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kiwi.Markdown.0.4.0\lib\net40\Kiwi.Markdown.dll</HintPath>
+      <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\Kiwi.Markdown.dll</HintPath>
     </Reference>
     <Reference Include="LinqToTwitter, Version=2.0.22.0, Culture=neutral, PublicKeyToken=957107be965c25d9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinqToTwitter.2.0.22\lib\net40\LinqToTwitter.dll</HintPath>
     </Reference>
-    <Reference Include="MarkdownSharp">
-      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
+    <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\MarkdownSharp.dll</HintPath>
     </Reference>
     <Reference Include="Postal">
       <HintPath>..\packages\postal.0.6.1\lib\net40\Postal.dll</HintPath>
@@ -130,6 +130,7 @@
     <Content Include="Content\Images\thumb.gif" />
     <Content Include="Global.asax" />
     <Content Include="google148a77af5c4b1070.html" />
+    <Content Include="License-Kiwi.txt" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
