@@ -105,7 +105,6 @@ namespace FluentSecurity.Website.App.Extensions
 
 		public static MvcHtmlString DisplayCurrentVersion(this HtmlHelper htmlHelper)
 		{
-			const string format = @"<div id=""current-version"">Version {0}</div>";
 			const string currentVersionCacheKey = "FluentSecurity-CurrentVersion";
 
 			string version;
@@ -125,8 +124,7 @@ namespace FluentSecurity.Website.App.Extensions
 				version = cachedVersion.ToString();
 			}
 
-			var versionHtml = String.Format(format, version);
-			return MvcHtmlString.Create(versionHtml);
+			return MvcHtmlString.Create(version);
 		}
 
 		private static string GetVersionFromAppSettings()
