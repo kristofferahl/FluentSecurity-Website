@@ -24,7 +24,7 @@ namespace FluentSecurity.Website.Controllers
 		public ActionResult Index()
 		{
 			var pageModel = new IndexPageModel();
-			pageModel.HashtagTweets.AddRange(GetTweetsMatching(5, "FluentSecurity", "@FluentSecurity"));
+			pageModel.Tweets.AddRange(GetTweetsMatching(5, "FluentSecurity", "@FluentSecurity"));
 			pageModel.Issues.AddRange(_gihubService.Issues(5));
 			pageModel.Commits.AddRange(_gihubService.Commits(5));
 			return View(pageModel);
