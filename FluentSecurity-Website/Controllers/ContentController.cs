@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using FluentSecurity.Website.App.Services;
 using FluentSecurity.Website.Models;
 using Postal;
@@ -6,29 +8,39 @@ using Postal;
 namespace FluentSecurity.Website.Controllers
 {
 	[OutputCache(CacheProfile = "ContentCache")]
-    public class ContentController : Controller
-    {
-    	private readonly IGithubService _gihubService;
-    	private readonly ITwitterService _twitterService;
-    	
+	public class ContentController : Controller
+	{
+		private readonly IGithubService _gihubService;
+		private readonly ITwitterService _twitterService;
+
 		private const string TempdataKey = "Model";
 
-    	public ContentController()
-    	{
-    		_gihubService = new GithubService();
-    		_twitterService = new TwitterService();
-    	}
+		public ContentController()
+		{
+			_gihubService = new GithubService();
+			_twitterService = new TwitterService();
+		}
 
-    	public ActionResult Index()
-        {
+		public ActionResult Index()
+		{
 			var pageModel = new IndexPageModel();
-    		pageModel.Issues.AddRange(_gihubService.Issues(5));
-    		pageModel.Commits.AddRange(_gihubService.Commits(5));
-    		pageModel.HashtagTweets.AddRange(_twitterService.Hashtag("FluentSecurity", 5));
-    		return View(pageModel);
-        }
+			pageModel.HashtagTweets.AddRange(GetTweetsMatching(5, "FluentSecurity", "@FluentSecurity"));
+			pageModel.Issues.AddRange(_gihubService.Issues(5));
+			pageModel.Commits.AddRange(_gihubService.Commits(5));
+			return View(pageModel);
+		}
 
-    	public ActionResult GettingStarted()
+		private IEnumerable<TwitterHashtagListModel> GetTweetsMatching(int maxTweets, params string[] searchTerms)
+		{
+			var tweets = new List<TwitterHashtagListModel>();
+
+			foreach (var searchTerm in searchTerms)
+				tweets.AddRange(_twitterService.Search(searchTerm, maxTweets));
+
+			return tweets.OrderByDescending(x => x.Date).Take(maxTweets).ToList();
+		}
+
+		public ActionResult GettingStarted()
 		{
 			return View();
 		}
@@ -36,8 +48,8 @@ namespace FluentSecurity.Website.Controllers
 		public ActionResult Contact()
 		{
 			var outModel = TempData.ContainsKey(TempdataKey) ?
-				(ContactEditModel) TempData[TempdataKey] : new ContactEditModel();
-			
+				(ContactEditModel)TempData[TempdataKey] : new ContactEditModel();
+
 			return View(outModel);
 		}
 
@@ -61,16 +73,16 @@ namespace FluentSecurity.Website.Controllers
 			return View(inModel);
 		}
 
-    	public ActionResult Http404()
-    	{
-    		Response.StatusCode = 404;
-    		return View();
-    	}
+		public ActionResult Http404()
+		{
+			Response.StatusCode = 404;
+			return View();
+		}
 
-    	public ActionResult Http500()
-    	{
+		public ActionResult Http500()
+		{
 			Response.StatusCode = 500;
-    		return View();
-    	}
-    }
+			return View();
+		}
+	}
 }

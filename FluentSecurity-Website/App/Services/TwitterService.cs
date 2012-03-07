@@ -7,7 +7,7 @@ namespace FluentSecurity.Website.App.Services
 {
 	public class TwitterService : ITwitterService
 	{
-		public IEnumerable<TwitterHashtagListModel> Hashtag(string hashtag, int amount)
+		public IEnumerable<TwitterHashtagListModel> Search(string searchterm, int amount)
 		{
 			var list = new List<TwitterHashtagListModel>();
 
@@ -16,7 +16,7 @@ namespace FluentSecurity.Website.App.Services
 				var searchResults = (twitterCtx.Search.Where(search =>
 					search.Type == SearchType.Search &&
 					search.PageSize == amount &&
-					search.Hashtag == hashtag
+					search.Hashtag == searchterm
 					)).SingleOrDefault() ?? new Search();
 
 				foreach (var searchResult in searchResults.Entries)

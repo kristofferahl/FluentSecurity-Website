@@ -5,6 +5,6 @@ namespace FluentSecurity.Website.App.Services
 {
 	public interface ITwitterService
 	{
-		IEnumerable<TwitterHashtagListModel> Hashtag(string hashtag, int amount);
+		IEnumerable<TwitterHashtagListModel> Search(string searchterm, int amount);
 	}
 }
