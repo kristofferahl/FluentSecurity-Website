@@ -1,75 +1,95 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentSecurity.Website.App.Extensions;
 using FluentSecurity.Website.Models;
-using GithubSharp.Core.API;
-using GithubSharp.Core.Base;
-using GithubSharp.Core.Models;
-using GithubSharp.Plugins.CacheProviders.WebCache;
-using GithubSharp.Plugins.LogProviders.SimpleLogProvider;
+using Newtonsoft.Json;
+using RestSharp;
+using RestSharp.Deserializers;
 
 namespace FluentSecurity.Website.App.Services
 {
 	public class GithubService : IGithubService
 	{
-		private static readonly WebCacher CacheProvider = new WebCacher();
-		private static readonly SimpleLogProvider SimpleLogProvider = new SimpleLogProvider();
-
 		private const string Username = "kristofferahl";
 		private const string RepositoryName = "FluentSecurity";
 
 		public IEnumerable<CommitListModel> Commits(int amount)
 		{
-			var commits = GetCommits();
-			foreach (var commit in commits.Take(amount))
-			{
-				yield return new CommitListModel
+			var commits = Get("commits?sha=develop&per_page=" + amount,
+				item => new CommitListModel
 				{
-					Author = commit.Author.Name,
-					Date = commit.AuthoredDate,
-					Message = commit.Message.Truncate(150),
-					Id = commit.Id,
-					Url = "http://github.com" + commit.URL
-				};
-			}
+					Author = item.commit.author.name,
+					Date = item.commit.author.date,
+					Message = item.commit.message,
+					Id = item.sha
+				},
+				model =>
+				{
+					model.Message = model.Message.Truncate(150);
+					model.Url = String.Format("http://github.com/{0}/{1}/commit/{2}", Username, RepositoryName, model.Id);
+				});
+
+			return commits.ToList();
 		}
 
 		public IEnumerable<IssueListModel> Issues(int amount)
 		{
-			var issues = GetIssues();
-			foreach (var issue in issues.OrderByDescending(x => x.Number).Take(amount))
-			{
-				yield return new IssueListModel
+			var issues = Get("issues?per_page=" + amount,
+				item => new IssueListModel
 				{
-					Id = issue.Number,
-					Title = issue.Title,
-					Text = issue.Body.Truncate(150),
-					User = issue.User,
-					Created = issue.CreatedAt,
-					Url = issue.HtmlUrl
-				};
+					Id = item.number,
+					Title = item.title,
+					Text = item.body,
+					User = item.user.login,
+					Created = item.created_at,
+					Url = item.html_url
+				},
+				model =>
+				{
+					model.Text = model.Text.Truncate(150);
+				});
+
+			return issues.OrderByDescending(x => x.Id).ToList();
+		}
+
+		private static IEnumerable<T> Get<T>(string url, Func<dynamic, T> map, Action<T> modify = null)
+		{
+			var client = GetClient();
+			var request = new RestRequest(url, Method.GET);
+			var response = client.Execute<dynamic>(request);
+			if (response.ResponseStatus != ResponseStatus.Completed)
+			{
+				yield break;
+			}
+			dynamic data = response.Data;
+			foreach (var item in data)
+			{
+				var mappedItem = map.Invoke(item);
+				if (modify != null) modify.Invoke(mappedItem);
+				yield return mappedItem;
 			}
 		}
 
-		private IEnumerable<Commit> GetCommits()
+		private static IRestClient GetClient()
 		{
-			var commitsAPI = new Commits(CacheProvider, SimpleLogProvider);
-			var commits = commitsAPI.CommitsForBranch(Username, RepositoryName, "develop") ?? Enumerable.Empty<Commit>();
-			return commits;
+			var restClient = new RestClient();
+			restClient.AddHandler("application/json", new DynamicJsonDeserializer());
+			var uri = new Uri(String.Format("https://api.github.com/repos/{0}/{1}/", Username, RepositoryName));
+			restClient.BaseUrl = uri.ToString();
+			return restClient;
 		}
 
-		private IEnumerable<Issue> GetIssues()
+		public class DynamicJsonDeserializer : IDeserializer
 		{
-			var issues = Enumerable.Empty<Issue>();
-			
-			var api = new BaseAPI(CacheProvider, SimpleLogProvider);
-			var url = string.Format("issues/list/{0}/{1}/{2}", Username, RepositoryName, "open");
-			var result = api.ConsumeJsonUrl<GithubSharp.Core.Models.Internal.IssuesCollection>(url);
-			
-			if (result != null && result.Issues != null)
-				issues = result.Issues;
-			
-			return issues;
+			public T Deserialize<T>(IRestResponse response)
+			{
+				return JsonConvert.DeserializeObject<dynamic>(response.Content);
+			}
+
+			public string RootElement { get; set; }
+			public string Namespace { get; set; }
+			public string DateFormat { get; set; }
 		}
 	}
 }
