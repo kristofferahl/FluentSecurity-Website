@@ -1,7 +1,7 @@
 ﻿@model IndexPageModel
 @{
 	ViewBag.Title = "Fluent Security : Fluent security configuration for ASP.NET MVC";
-	var downloadFileName = String.Format("FluentSecurity-{0}.zip", @Html.DisplayCurrentVersion().ToHtmlString());
+	var downloadFileName = String.Format("FluentSecurity-{0}.zip", @Html.GetStableVersion());
 }
 @section Highlights {
 	<div class="col">
@@ -16,7 +16,7 @@
 	</div>
 	<div class="col last">
 		<h2>Download</h2>
-		<p>If you're not using NuGet you can grab the binaries from Github.</p>
+		<p>If you're not using NuGet you can grab the latest stable binaries from Github.</p>
 		<a class="link" href="https://github.com/downloads/kristofferahl/FluentSecurity/@downloadFileName">Download</a>
 	</div>
 }

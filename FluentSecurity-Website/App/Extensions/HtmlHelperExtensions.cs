@@ -111,7 +111,7 @@ namespace FluentSecurity.Website.App.Extensions
 			var cachedVersion = HttpRuntime.Cache.Get(currentVersionCacheKey);
 			if (cachedVersion == null)
 			{
-				version = GetVersionFromGithub() ?? GetVersionFromAppSettings();
+				version = GetVersionFromGithub() ?? htmlHelper.GetStableVersion();
 				HttpRuntime.Cache.Insert(
 					currentVersionCacheKey,
 					version,
@@ -127,9 +127,9 @@ namespace FluentSecurity.Website.App.Extensions
 			return MvcHtmlString.Create(version);
 		}
 
-		private static string GetVersionFromAppSettings()
+		public static string GetStableVersion(this HtmlHelper helper)
 		{
-			return ConfigurationManager.AppSettings["FluentSecurity.LastKnownVersion"];
+			return ConfigurationManager.AppSettings["FluentSecurity.LatestStableVersion"];
 		}
 
 		private static string GetVersionFromGithub()
