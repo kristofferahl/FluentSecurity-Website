@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ColorCode, Version=1.0.1.62759, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\ColorCode.dll</HintPath>
+    <Reference Include="ColorCode">
+      <HintPath>..\packages\ColorCode.1.0.1\lib\ColorCode.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
@@ -46,9 +46,8 @@
     <Reference Include="Glimpse.Elmah">
       <HintPath>..\packages\Glimpse.Elmah.0.9.7\lib\net40\Glimpse.Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="Kiwi.Markdown, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\Kiwi.Markdown.dll</HintPath>
+    <Reference Include="Kiwi.Markdown">
+      <HintPath>..\packages\Kiwi.Markdown.0.8.2\lib\net40\Kiwi.Markdown.dll</HintPath>
     </Reference>
     <Reference Include="LinqToTwitter, Version=2.0.22.0, Culture=neutral, PublicKeyToken=957107be965c25d9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -57,8 +56,8 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.11\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MarkdownSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Kiwi.Markdown.0.7.1\lib\net40\MarkdownSharp.dll</HintPath>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
