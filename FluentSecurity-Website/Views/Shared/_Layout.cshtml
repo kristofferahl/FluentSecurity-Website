@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div id="header">
+		<header>
 			@Html.Partial("_Navigation", "menu")
 			<div class="highlights">
 				<div id="pitch">
@@ -28,13 +28,13 @@
 				</div>
 				@RenderSection("Highlights", false)
 			</div>
-		</div>
-		<div id="main">
+		</header>
+		<section id="main">
 			@RenderBody()
-		</div>
-		<div id="footer">
+		</section>
+		<footer>
 			@Html.Partial("_Navigation", "secondary-menu")
-		</div>
+		</footer>
 	</div>
 <script type="text/javascript">
 	var _gaq = _gaq || [];
