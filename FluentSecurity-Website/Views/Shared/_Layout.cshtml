@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/Content/Styles/Main.css?v=3")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Styles/style.less")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 	<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 	<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,28 +12,34 @@
 <body>
 	<div id="wrapper">
 		<header>
+			<div class="wrapper">
 			@Html.Partial("_Navigation", "menu")
-			<div class="highlights">
-				<div id="pitch">
-					<img src="@Url.Content("~/Content/Images/Fluent-Security-Logo-100x100.png")" id="logo" alt="Fluent Security Logo" />
-					<h1><a href="/"><span>Fluent</span> Security</a> configuration<br />for ASP.NET MVC</h1>
-					<div id="current-version">Version @Html.DisplayCurrentVersion()</div>
-					<div id="mvc-version"><span>ASP.NET MVC 3</span></div>
-					<p class="elevator-pitch"><strong>Fluent Security provides a fluent interface for configuring security in ASP.NET MVC. No attributes or nasty xml, just pure love. Go get it on NuGet!</strong></p>
-					<div class="commandWrapper">
-						<div class="commandPrompt">
-							<p class="command">PM&gt; Install-Package FluentSecurity</p>
-						</div>
+			<div id="pitch">
+				<div id="logo"><img src="@Url.Content("~/Content/Images/Fluent-Security-Logo-100x100.png")" alt="Fluent Security Logo" /></div>
+				<h1><a href="/"><span>Fluent</span> Security</a> configuration<br />for ASP.NET MVC</h1>
+				<p class="elevator-pitch"><strong>Fluent Security provides a fluent interface for configuring security in ASP.NET MVC. No attributes or nasty xml, just pure love. Go get it on NuGet!</strong></p>
+				<div class="commandWrapper">
+					<div class="commandPrompt">
+						<p class="command">PM&gt; Install-Package FluentSecurity</p>
 					</div>
 				</div>
-				@RenderSection("Highlights", false)
+				<div class="version-info">
+					<div id="current-version">Version @Html.DisplayCurrentVersion()</div>
+					<div id="mvc-version"><span>ASP.NET MVC 3 and ASP.NET MVC 4</span></div>
+				</div>
+			</div>
 			</div>
 		</header>
+		@RenderSection("Highlights", false)
 		<section id="main">
+			<div class="wrapper">
 			@RenderBody()
+			</div>
 		</section>
 		<footer>
+			<div class="wrapper">
 			@Html.Partial("_Navigation", "secondary-menu")
+			</div>
 		</footer>
 	</div>
 <script type="text/javascript">
