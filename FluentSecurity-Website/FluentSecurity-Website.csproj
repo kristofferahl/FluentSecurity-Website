@@ -129,7 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\ASP-NET-MVC-Version.png" />
-    <None Include="Content\Styles\Style.less" />
+    <None Include="Content\Styles\main.less" />
+    <None Include="Content\Styles\grid.less" />
+    <None Include="Content\Styles\normalize.less" />
+    <None Include="Content\Styles\print.less" />
+    <None Include="Content\Styles\style.less" />
     <Content Include="Content\Styles\Main.css" />
     <Content Include="Content\Images\body.gif" />
     <Content Include="Content\Images\content.png" />
