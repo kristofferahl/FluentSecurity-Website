@@ -6,6 +6,7 @@
 @mediumBgText: #FFF;
 @darkBg: #000;
 @darkBgText: #DDD;
+@border: #AAA;
 
 /* Mixins
 -------------------------------- */
@@ -29,6 +30,7 @@
 .hidden() {display: none; visibility: hidden;}
 .reset() { margin: 0; padding: 0;}
 .list-reset() {.reset; list-style-type: none;}
+.rounded() {border: solid 1px @border; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;}
 
 /* Elements
 -------------------------------- */
@@ -36,7 +38,30 @@ p {line-height: 1.6;}
 pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; background-color: #E5E5E5; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
 code {padding: 1px 2px; border: dotted 1px #555; background-color: #E5E5E5; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
 pre code {border: none; background-color: transparent;}
+address {font-style: normal;}
 dd + dt {margin-top: 1em;}
+fieldset {margin-bottom: 1em; padding: 10px 30px; .rounded;}
+legend {padding: 5px 10px; font-weight: bold; color: @lightBgText;}
+label {display: block; font-weight: bold;}
+input[type=text], textarea {width: 20em; padding: .5em; background-color: #FEFEFE; .rounded;}
+textarea {width: 35em;}
+input[type="submit"] 
+{
+	padding: 10px 14px;
+	color: @lightBgText;
+	background: #c6c6c6;
+	background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #C6C6C6), color-stop(0.65, #D1D1D1), color-stop(0.99, #EBEBEB), color-stop(1, #fff));
+	background: -moz-linear-gradient(center bottom, #C6C6C6 0%, #D1D1D1 65%, #EBEBEB 99%, #fff 100%);
+	border: 1px solid @border;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: bold;
+}
+input[type="submit"]:hover,
+input[type="submit"]:active,
+input[type="submit"]:focus {border:1px solid #666; cursor: pointer; color: #222;}
 
 /* General
 ------------------------------- */
@@ -127,7 +152,6 @@ section#main
 	#extras .col {.column(4)}
 	#extras h2 {font-size: 24px;}
 }
-
 footer
 {
 	.mediumTheme;
