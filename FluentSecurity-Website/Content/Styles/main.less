@@ -124,6 +124,8 @@ header
 	#pitch h1 a,
 	#pitch h1 a:visited {color: #e69500 !important; text-transform: uppercase; text-decoration: none; font-weight: bold; letter-spacing: 2px;}
 	.elevator-pitch {.column(5)}
+	.elevator-pitch:before {content: '"'; font-size: 40px; position: absolute; margin: -20px 0 0 -20px;}
+	.elevator-pitch:after {content: '"'; font-size: 40px; position: absolute; margin: 0 0 0 5px;}
 	.commandWrapper {.column(12); margin-top: 60px;}
 	.version-info {.column(12); overflow: auto; margin-top: 10px; font-size: 14px; font-weight: bold;}
 	#current-version {float: right;}
