@@ -2,10 +2,10 @@
 -------------------------------- */
 @lightBg: #FFF;
 @lightBgText: #555;
-@mediumBg: #3E3E3E;
+@mediumBg: #4E4E4E;
 @mediumBgText: #FFF;
-@darkBg: #000;
-@darkBgText: #DDD;
+@darkBg: #222;
+@darkBgText: #EEE;
 @border: #AAA;
 
 /* Mixins
@@ -30,7 +30,7 @@
 .hidden() {display: none; visibility: hidden;}
 .reset() { margin: 0; padding: 0;}
 .list-reset() {.reset; list-style-type: none;}
-.rounded() {border: solid 1px @border; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;}
+.rounded(@size: 5px) {border: solid 1px @border; -moz-border-radius: @size; -webkit-border-radius: @size; border-radius: @size;}
 
 /* Elements
 -------------------------------- */
@@ -120,6 +120,7 @@ header
 	}
 
 	#logo {.column(2)}
+	#logo img {background-color: @darkBgText; padding: 3px; .rounded(20px); border: none;}
 	#pitch h1 {.column(5)}
 	#pitch h1 a,
 	#pitch h1 a:visited {color: #e69500 !important; text-transform: uppercase; text-decoration: none; font-weight: bold; letter-spacing: 2px;}
