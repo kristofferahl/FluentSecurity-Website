@@ -7,6 +7,7 @@
 @darkBg: #222;
 @darkBgText: #EEE;
 @border: #AAA;
+@highlightBg: #E5E5E5;
 
 /* Mixins
 -------------------------------- */
@@ -35,8 +36,8 @@
 /* Elements
 -------------------------------- */
 p {line-height: 1.6;}
-pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; background-color: #E5E5E5; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
-code {padding: 1px 2px; border: dotted 1px #555; background-color: #E5E5E5; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
+pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
+code {padding: 1px 2px; border: dotted 1px #555; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
 pre code {border: none; background-color: transparent;}
 address {font-style: normal;}
 dd + dt {margin-top: 1em;}
@@ -137,7 +138,7 @@ section#highlights
 	.mediumTheme;
 	.wrapper {.wrapper}
 	h2 {margin-top: 0; color: #e69500;}
-	code {background-color: lighten(@mediumBg, 10%); border-color: darken(#E5E5E5, 10%);}
+	code {background-color: lighten(@mediumBg, 10%); border-color: lighten(@mediumBg, 20%);}
 
 	.commandWrapper {.column(12); margin-bottom: 20px;}
 	.col {.column(4); color: #FFF;}
@@ -150,10 +151,23 @@ section#main
 
 	#why ul {.list-reset; .row; margin-bottom: 40px;}
 	#why li.reason {.column(4)}
+	#why li.reason h3 {padding: 3px 0 3px 35px; background: url(../images/favorite.png) no-repeat left center;}
+
+	.article {min-height: 130px; margin-bottom: 20px; padding: 0 0 20px 0; border-bottom: solid 1px lighten(@border, 20%);}
+	.article .short {clear: both; margin-bottom: 0; font-size: 11px;}
+	.date, .author {margin: 0 0 10px; font-size: 11px; font-weight: bold;}
 
 	#extras {.row;}
 	#extras .col {.column(4)}
 	#extras h2 {font-size: 24px;}
+
+	#extras .date {float: left;}
+	#extras .author {float: right; font-size: 11px; font-weight: bold; margin: 0 0 3px;}
+	#extras h4 {clear: both; font-size: 11px;}
+	#extras .twitter .short {font-size: 16px;}
+	#extras .twitter .short a {clear: both;}
+	#extras .twitter .short em {font-style: normal;}
+	#extras .twitter .follow {margin: 0 0 20px 0; padding: 20px; font-size: 14px; background-color: @highlightBg;}
 }
 footer
 {
