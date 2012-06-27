@@ -149,6 +149,7 @@ section#main
 	.wrapper {.wrapper}
 	h1:first-child, h2:first-child {margin-top: 0; font-size: 34px;}
 
+	#why {.column(12)}
 	#why ul {.list-reset; .row; margin-bottom: 40px;}
 	#why li.reason {.column(4)}
 	#why li.reason h3 {padding: 3px 0 3px 35px; background: url(../images/favorite.png) no-repeat left center;}
@@ -156,13 +157,11 @@ section#main
 	.article {min-height: 130px; margin-bottom: 20px; padding: 0 0 20px 0; border-bottom: solid 1px lighten(@border, 20%);}
 	.article .short {clear: both; margin-bottom: 0; font-size: 11px;}
 	.date, .author {margin: 0 0 10px; font-size: 11px; font-weight: bold;}
+	.date {float: left;}
+	.author {float: right;}
 
-	#extras {.row;}
 	#extras .col {.column(4)}
 	#extras h2 {font-size: 24px;}
-
-	#extras .date {float: left;}
-	#extras .author {float: right; font-size: 11px; font-weight: bold; margin: 0 0 3px;}
 	#extras h4 {clear: both; font-size: 11px;}
 	#extras .twitter .short {font-size: 16px;}
 	#extras .twitter .short a {clear: both;}
@@ -173,6 +172,7 @@ footer
 {
 	.mediumTheme;
 	.wrapper {.wrapper}
+	nav {.column(12)}
 	a {margin: 0 20px 0 0;}
 	a, a:visited {text-decoration: none;}
 	a:hover, a:active, a:focus, a strong {text-decoration: underline;}
