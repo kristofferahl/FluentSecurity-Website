@@ -8,6 +8,7 @@
 @darkBgText: #EEE;
 @border: #AAA;
 @highlightBg: #E5E5E5;
+@highlightBorder: #555;
 
 /* Mixins
 -------------------------------- */
@@ -36,8 +37,8 @@
 /* Elements
 -------------------------------- */
 p {line-height: 1.6;}
-pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
-code {padding: 1px 2px; border: dotted 1px #555; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
+pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; border: dotted 1px @highlightBorder; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
+code {padding: 1px 2px; border: dotted 1px @highlightBorder; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
 pre code {border: none; background-color: transparent;}
 address {font-style: normal;}
 dd + dt {margin-top: 1em;}
@@ -121,7 +122,7 @@ header
 	}
 
 	#logo {.column(2)}
-	#logo img {background-color: @darkBgText; padding: 3px; .rounded(20px); border: none;}
+	#logo img {background-color: @darkBgText; padding: 4px; .rounded(20px); border: none;}
 	#pitch h1 {.column(5)}
 	#pitch h1 a,
 	#pitch h1 a:visited {color: #e69500 !important; text-transform: uppercase; text-decoration: none; font-weight: bold; letter-spacing: 2px;}

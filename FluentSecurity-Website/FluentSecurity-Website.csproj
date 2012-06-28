@@ -128,19 +128,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\ASP-NET-MVC-Version.png" />
     <None Include="Content\Styles\main.less" />
     <None Include="Content\Styles\grid.less" />
     <None Include="Content\Styles\normalize.less" />
     <None Include="Content\Styles\print.less" />
     <None Include="Content\Styles\style.less" />
+    <Content Include="Content\Images\favorite.png" />
+    <Content Include="Content\Images\Fluent-Security-Logo-128x128.png" />
     <Content Include="Content\Styles\Main.css" />
-    <Content Include="Content\Images\body.gif" />
-    <Content Include="Content\Images\content.png" />
-    <Content Include="Content\Images\Fluent-Security-Logo-100x100.png" />
-    <Content Include="Content\Images\line.gif" />
-    <Content Include="Content\Images\pitch-fs.jpg" />
-    <Content Include="Content\Images\thumb.gif" />
     <Content Include="Global.asax" />
     <Content Include="google148a77af5c4b1070.html" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
