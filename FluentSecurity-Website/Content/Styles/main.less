@@ -8,7 +8,7 @@
 @darkBgText: #EEE;
 @border: #AAA;
 @highlightBg: #E5E5E5;
-@highlightBorder: #555;
+@highlightBorder: #DDD;
 
 /* Mixins
 -------------------------------- */
@@ -33,12 +33,13 @@
 .reset() { margin: 0; padding: 0;}
 .list-reset() {.reset; list-style-type: none;}
 .rounded(@size: 5px) {border: solid 1px @border; -moz-border-radius: @size; -webkit-border-radius: @size; border-radius: @size;}
+.highlight() {border: dotted 1px @highlightBorder; background-color: @highlightBg;}
 
 /* Elements
 -------------------------------- */
 p {line-height: 1.6;}
-pre {margin-bottom: 1em; padding: 20px 20px 20px 20px; border: dotted 1px @highlightBorder; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
-code {padding: 1px 2px; border: dotted 1px @highlightBorder; background-color: @highlightBg; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
+pre {.highlight; margin-bottom: 1em; padding: 20px 20px 20px 20px; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
+code {.highlight; padding: 1px 2px; font-size: 14px; font-family: Consolas, 'Courier New', Courier, monospace; font-weight: bold;}
 pre code {border: none; background-color: transparent;}
 address {font-style: normal;}
 dd + dt {margin-top: 1em;}
@@ -164,10 +165,10 @@ section#main
 	#extras .col {.column(4)}
 	#extras h2 {font-size: 24px;}
 	#extras h4 {clear: both; font-size: 11px;}
-	#extras .twitter .short {font-size: 16px;}
 	#extras .twitter .short a {clear: both;}
 	#extras .twitter .short em {font-style: normal;}
-	#extras .twitter .follow {margin: 0 0 20px 0; padding: 20px; font-size: 14px; background-color: @highlightBg;}
+	#extras .follow {.column(12);}
+	#extras .follow p {.highlight; padding: 20px; font-size: 14px;}
 }
 footer
 {
