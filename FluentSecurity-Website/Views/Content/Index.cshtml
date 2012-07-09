@@ -3,6 +3,10 @@
 	ViewBag.Title = "Fluent Security : Fluent security configuration for ASP.NET MVC";
 	var downloadFileName = String.Format("FluentSecurity-{0}.zip", @Html.GetStableVersion());
 }
+@section Scripts {
+	<script type="text/javascript" src="http://www.websnapr.com/js/websnapr.js"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/app.js")"></script>
+}
 @section Highlights {
 <section id="highlights">
 <div class="wrapper">
@@ -54,6 +58,21 @@
 	</ul>
 </section>
 <section id="extras">
+	<section class="blogposts">
+		<h2>Blog posts</h2>
+		<ul>
+			<li><a href="http://www.marius-schulz.net/blog/securing-an-aspnet-mvc-application-using-fluentsecurity">Securing an ASP.NET MVC Application using FluentSecurity</a> <strong>by Marius Schultz</strong></li>
+			<li><a href="http://craigsdevspace.wordpress.com/2011/07/08/mvc3-security-a-fluent-way/">MVC3 Security: A Fluent Way</a> <strong>by Craig Taylor</strong></li>
+			<li><a href="http://blogs.lessthandot.com/index.php/WebDev/ServerProgramming/ASPNET/fluent-security-with-vb-net">Fluent security with VB.Net</a> <strong>by Christain Baes</strong></li>
+			<li><a href="http://www.codeproject.com/KB/web-security/ASPNET-MVC-Security.aspx">Implement secure ASP.NET MVC applications</a> <strong>by Jovan Popovic</strong></li>
+			<li><a href="http://marcofranssen.nl/2012/05/18/secure-your-web-app-fluently/">Secure your web app fluently</a> <strong>by Marco Franssen</strong></li>
+			<li><a href="http://www.revium.com.au/articles/sandbox/fluentsecurity-mvcsitemapprovider-better-net-security-management/">FluentSecurity + MvcSiteMapProvider = Better .Net Security Management</a> <strong>by Mark Wiseman</strong></li>
+			<li><a href="http://blog.marius-schulz.net/setting-up-fluentsecurity-to-use-ninject-for-dependency-resolution">Setting Up FluentSecurity to Use Ninject for Dependency Resolution</a> <strong>by Marius Schultz</strong></li>
+		</ul>
+	</section>
+	<section class="follow">
+		<p>Follow <a href="http://twitter.com/FluentSecurity">@("@FluentSecurity")</a> and tweet about us using the hashtag <a href="http://search.twitter.com/search?q=%23FluentSecurity"><strong>#FluentSecurity</strong></a>. If you've written anything about FluentSecurity, <a href="@Url.Action("Contact")">let us know</a>.</p>
+	</section>
 	<section class="twitter col">
 		<h2>FluentSecurity on twitter</h2>
 		@foreach (var item in Model.Tweets)
@@ -86,8 +105,5 @@
 				<p class="short">@item.Message</p>
 			</div>
 		}
-	</section>
-	<section class="follow">
-		<p>Follow <a href="http://twitter.com/FluentSecurity">@("@FluentSecurity")</a> and tweet about us using the hashtag <a href="http://search.twitter.com/search?q=%23FluentSecurity"><strong>#FluentSecurity</strong></a>.</p>
 	</section>
 </section>
