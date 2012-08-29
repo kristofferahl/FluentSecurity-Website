@@ -9,13 +9,26 @@
 		<h1>#TweetStore</h1>
 		<p ng-show="tweets.length < 1">Loading tweets! Please wait...</p>
 		<ul class="tweets" ng-show="tweets.length > 0">
-			<li ng-repeat="tweet in tweets">
-				<table>
-					<tr ng-repeat="keyVal in showTweet(tweet)">
-						<th>{{keyVal.Key}}</th>
-						<td>{{keyVal.Value}}</td>
-					</tr>
-				</table>
+			<li id="tweet-{{tweet.Id}}" class="getStatus(tweet)" ng-repeat="tweet in tweets">
+				<dl class="summary">
+					<dt>Id</dt>
+					<dd ng-click="toggle(tweet)">{{tweet.Id}}</dd>
+					<dt>Author</dt>
+					<dd>{{getAuthor(tweet)}}</dd>
+					<dt>Tweet</dt>
+					<dd ng-bind-html-unsafe="getContent(tweet)"></dd>
+				</dl>
+				<div ng-show="!isActiveTweet(tweet)"><a href="#tweet-{{tweet.Id}}" class="toggle" ng-click="toggle(tweet)">Show more...</a></div>
+				<div class="details" ng-show="isActiveTweet(tweet)">
+					<table>
+						<tr ng-repeat="keyVal in showTweet(tweet)">
+							<th ng-click="toggle(tweet)">{{keyVal.Key}}</th>
+							<td>{{keyVal.Value}}</td>
+						</tr>
+					</table>
+					<div><button type="button" ng-click="remove(tweet)">Delete</button></div>
+					<div><a href="#tweet-{{tweet.Id}}" class="toggle" ng-click="toggle(tweet)">Show less...</a></div>
+				</div>
 			</li>
 		</ul>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
