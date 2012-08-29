@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="/assets/styles/admin.css"/>
 	</head>
 	<body ng-controller="TweetsCtrl">
-		<h1>#TweetStore</h1>
+		<h1>#TweetStore ({{tweets.length}} tweets)</h1>
 		<p ng-show="tweets.length < 1">Loading tweets! Please wait...</p>
 		<ul class="tweets" ng-show="tweets.length > 0">
 			<li id="tweet-{{tweet.Id}}" class="getStatus(tweet)" ng-repeat="tweet in tweets">

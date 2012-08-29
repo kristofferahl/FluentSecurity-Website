@@ -13,7 +13,6 @@ namespace TweetStore.SelfHost
 			return Program.Store.GetAll<Tweet>(true);
 		}
 
-		[HttpDelete]
 		public Tweet Delete(Guid id)
 		{
 			var tweet = Program.Store.Query<Tweet>(true, t => t.Id == id).SingleOrDefault();
