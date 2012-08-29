@@ -37,7 +37,7 @@ namespace TweetStore
 			EnsureInitialized();
 			var query = _sisoDatabase.UseOnceTo().Query<ITweet>();
 			if (!includePrivate) query = query.Where(t => t.Private == false);
-			return query.ToListOf<T>();
+			return query.OrderByDescending(x => x.Published).ToListOf<T>();
 		}
 
 		public IEnumerable<T> Query<T>(bool includePrivate = false, params Expression<Func<ITweet, bool>>[] expressions) where T : class, ITweet
@@ -48,7 +48,7 @@ namespace TweetStore
 			EnsureInitialized();
 			var query = _sisoDatabase.UseOnceTo().Query<ITweet>();
 			if (!includePrivate) query = query.Where(t => t.Private == false);
-			return query.Where(expressions).ToListOf<T>();
+			return query.Where(expressions).OrderByDescending(x => x.Published).ToListOf<T>();
 		}
 
 		private void EnsureInitialized()

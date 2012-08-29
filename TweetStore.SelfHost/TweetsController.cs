@@ -10,11 +10,13 @@ namespace TweetStore.SelfHost
 	{
 		public IEnumerable<Tweet> GetAll()
 		{
+			LogRequest();
 			return Program.Store.GetAll<Tweet>(true);
 		}
 
 		public Tweet Delete(Guid id)
 		{
+			LogRequest();
 			var tweet = Program.Store.Query<Tweet>(true, t => t.Id == id).SingleOrDefault();
 			if (tweet != null)
 			{
@@ -22,6 +24,11 @@ namespace TweetStore.SelfHost
 				return tweet;
 			}
 			throw new HttpResponseException(HttpStatusCode.NotFound);
+		}
+
+		private void LogRequest()
+		{
+			Console.WriteLine("Request: " + Request.RequestUri);
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Web.Http;
 
 namespace TweetStore.SelfHost
@@ -6,6 +7,7 @@ namespace TweetStore.SelfHost
 	{
 		public Asset Get()
 		{
+			Console.WriteLine("Request: " + Request.RequestUri);
 			return new Asset(@"..\..\Assets\Templates\Admin.html");
 		}
 	}

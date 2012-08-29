@@ -8,6 +8,7 @@ namespace TweetStore.SelfHost
 	{
 		public Asset Get(string type, string asset)
 		{
+			Console.WriteLine("Request: " + Request.RequestUri);
 			var model = new Asset(String.Format(@"..\..\Assets\{0}\{1}", type, asset));
 			if (model.Exists()) return model;
 			throw new HttpResponseException(HttpStatusCode.NotFound);
