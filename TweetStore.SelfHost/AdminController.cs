@@ -6,7 +6,7 @@ namespace TweetStore.SelfHost
 	{
 		public Asset Get()
 		{
-			return new Asset(@"..\..\Admin.html");
+			return new Asset(@"..\..\Assets\Templates\Admin.html");
 		}
 	}
 }

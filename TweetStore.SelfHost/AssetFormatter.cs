@@ -8,8 +8,12 @@ namespace TweetStore.SelfHost
 {
 	public class AssetFormatter : MediaTypeFormatter
 	{
+		private readonly AssetReader _reader = new AssetReader();
+
 		public AssetFormatter()
 		{
+			SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/css"));
+			SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/javascript"));
 			SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 			SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/xhtml+xml"));
 		}
@@ -19,12 +23,12 @@ namespace TweetStore.SelfHost
 			var task = Task.Factory.StartNew(() =>
 			{
 				var asset = (Asset)value;
-				var assetContent = File.ReadAllText(asset.Path);
-				
-				var bytes = System.Text.Encoding.Default.GetBytes(assetContent);
-
-				writeStream.Write(bytes, 0, bytes.Length);
-				writeStream.Flush();
+				var bytes = _reader.Read(asset);
+				if (bytes != null)
+				{
+					writeStream.Write(bytes, 0, bytes.Length);
+					writeStream.Flush();
+				}
 			});
 			return task;
 		}

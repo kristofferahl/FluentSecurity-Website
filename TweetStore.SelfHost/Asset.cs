@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace TweetStore.SelfHost
 {
 	public class Asset
@@ -7,6 +9,11 @@ namespace TweetStore.SelfHost
 		public Asset(string path)
 		{
 			Path = path;
+		}
+
+		public bool Exists()
+		{
+			return File.Exists(Path);
 		}
 	}
 }

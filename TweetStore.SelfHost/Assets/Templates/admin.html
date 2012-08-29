@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<title>TweetStore - Admin</title>
+		
+		<link rel="stylesheet" type="text/css" href="/assets/styles/admin.css"/>
+	</head>
+	<body ng-controller="TweetsCtrl">
+		<h1>#TweetStore</h1>
+		<p ng-show="tweets.length < 1">Loading tweets! Please wait...</p>
+		<ul class="tweets" ng-show="tweets.length > 0">
+			<li ng-repeat="tweet in tweets">
+				<table>
+					<tr ng-repeat="keyVal in showTweet(tweet)">
+						<th>{{keyVal.Key}}</th>
+						<td>{{keyVal.Value}}</td>
+					</tr>
+				</table>
+			</li>
+		</ul>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+		<script type="text/javascript" src="/assets/scripts/app.js"></script>
+	</body>
+</html>
