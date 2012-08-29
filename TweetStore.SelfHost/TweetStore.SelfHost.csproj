@@ -63,9 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Asset.cs" />
-    <Compile Include="AssetFormatter.cs" />
-    <Compile Include="AssetReader.cs" />
+    <Compile Include="Models\Asset.cs" />
+    <Compile Include="App\Formatters\AssetFormatter.cs" />
+    <Compile Include="App\Formatters\AssetReader.cs" />
     <Compile Include="Controllers\AssetsController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

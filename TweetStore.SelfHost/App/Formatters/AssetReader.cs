@@ -1,9 +1,8 @@
 using System.Collections.Concurrent;
 using System.IO;
-using System.Net;
-using System.Web.Http;
+using TweetStore.SelfHost.Models;
 
-namespace TweetStore.SelfHost
+namespace TweetStore.SelfHost.App.Formatters
 {
 	public class AssetReader
 	{

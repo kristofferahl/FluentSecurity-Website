@@ -1,5 +1,6 @@
 using System;
 using System.Web.Http;
+using TweetStore.SelfHost.Models;
 
 namespace TweetStore.SelfHost.Controllers
 {

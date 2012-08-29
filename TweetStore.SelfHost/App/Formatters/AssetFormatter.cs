@@ -3,8 +3,9 @@ using System.IO;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using TweetStore.SelfHost.Models;
 
-namespace TweetStore.SelfHost
+namespace TweetStore.SelfHost.App.Formatters
 {
 	public class AssetFormatter : MediaTypeFormatter
 	{

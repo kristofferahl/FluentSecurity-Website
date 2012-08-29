@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace TweetStore.SelfHost
+namespace TweetStore.SelfHost.Models
 {
 	public class Asset
 	{

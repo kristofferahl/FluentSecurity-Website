@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
+using TweetStore.SelfHost.App.Formatters;
 using TweetStore.SqlCE;
 
 namespace TweetStore.SelfHost
