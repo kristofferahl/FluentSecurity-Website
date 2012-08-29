@@ -1,7 +1,7 @@
 using System;
 using System.Web.Http;
 
-namespace TweetStore.SelfHost
+namespace TweetStore.SelfHost.Controllers
 {
 	public class AdminController : ApiController
 	{

@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Web.Http;
 
-namespace TweetStore.SelfHost
+namespace TweetStore.SelfHost.Controllers
 {
 	public class AssetsController : ApiController
 	{

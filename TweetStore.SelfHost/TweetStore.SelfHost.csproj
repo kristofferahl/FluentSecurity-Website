@@ -62,14 +62,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Asset.cs" />
     <Compile Include="AssetFormatter.cs" />
     <Compile Include="AssetReader.cs" />
-    <Compile Include="AssetsController.cs" />
+    <Compile Include="Controllers\AssetsController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TweetsController.cs" />
+    <Compile Include="Controllers\TweetsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TweetStore.SqlCE\TweetStore.SqlCe.csproj">

@@ -4,7 +4,7 @@ using System.Net;
 using System.Web.Http;
 using System.Linq;
 
-namespace TweetStore.SelfHost
+namespace TweetStore.SelfHost.Controllers
 {
 	public class TweetsController : ApiController
 	{
