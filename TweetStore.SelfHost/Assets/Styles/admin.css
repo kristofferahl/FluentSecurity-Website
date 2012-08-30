@@ -1,8 +1,9 @@
 ﻿body { padding: 20px 20px; font-family: "Consolas";font-size: .8em; }
 h1 { margin: 0 0 20px 0; }
+a { font-weight: bold; color: #ee3535; }
 ul { padding: 0; list-style-type: none; }
-ul li { margin-bottom: 20px; padding: 10px; background-color: #ffffc9; border-bottom: solid 3px #aaa; }
-ul li.private { background-color: #ffd6dA; }
+ul li { margin-bottom: 20px; padding: 10px; background-color: #dcefff; border-bottom: solid 3px #bfe2ff; }
+ul li.private { background-color: #ffcea9; }
 ul li .details { margin-top: 10px; padding: 20px; background-color: #f6f6f6; }
 ul li a.toggle { display: block; margin: 10px 0; }
 dl dt { float: left; }
