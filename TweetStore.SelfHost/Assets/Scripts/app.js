@@ -11,42 +11,29 @@
 	};
 
 	$scope.getAuthor = function (tweet) {
-		if (tweet.AuthorId) return tweet.AuthorId;
-		if (tweet.AuthorName) return tweet.AuthorName;
-		return "-";
+		return tweet.AuthorId || tweet.AuthorName;
 	};
 
 	$scope.getContent = function (tweet) {
-		if (tweet.TweetHtmlContent) return tweet.TweetHtmlContent;
-		if (tweet.TweetTextContent) return tweet.TweetTextContent;
-		return "-";
+		return tweet.TweetHtmlContent || tweet.TweetTextContent;
 	};
 
 	$scope.showTweet = function (tweet) {
 		var pairs = [];
 		for (var key in tweet) {
 			if (key !== "$$hashKey") {
-				var val = tweet[key];
-				pairs.push({
-					Key: key,
-					Value: val
-				});
+				pairs.push({ Key: key, Value: tweet[key] });
 			}
 		}
 		return pairs;
 	};
 
 	$scope.toggle = function (tweet) {
-		if ($scope.isActiveTweet(tweet)) {
-			$scope.activeTweet = null;
-		} else {
-			$scope.activeTweet = tweet.Id;
-		}
+		$scope.activeTweet = $scope.isActiveTweet(tweet) ? null : tweet.Id;
 	};
 
 	$scope.remove = function (tweet) {
 		var url = '/api/tweets/' + tweet.Id;
-		console.log(url);
 		$http.delete(url).success(function () {
 			for (var i=0; i < $scope.tweets.length; i++) {
 				if ($scope.tweets[i].Id === tweet.Id) {
