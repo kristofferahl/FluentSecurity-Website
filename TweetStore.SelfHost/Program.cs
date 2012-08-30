@@ -19,16 +19,16 @@ namespace TweetStore.SelfHost
 			config.Formatters.Insert(0, new AssetFormatter());
 
 			config.Routes.MapHttpRoute(
-				"Assets", "assets/{type}/{asset}", new { controller = "Assets" }
-				);
-
-			config.Routes.MapHttpRoute(
 				"Admin Web", "admin", new { controller = "Admin" }
 				);
 
 			config.Routes.MapHttpRoute(
-				"API Default", "api/{controller}/{id}",
-				new { id = RouteParameter.Optional });
+				"Assets", "assets/{type}/{asset}", new { controller = "Assets" }
+				);
+
+			config.Routes.MapHttpRoute(
+				"API Default", "api/{controller}/{id}", new { id = RouteParameter.Optional }
+				);
 
 			using (var server = new HttpSelfHostServer(config))
 			{
