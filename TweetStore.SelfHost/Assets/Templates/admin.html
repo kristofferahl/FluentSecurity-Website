@@ -9,16 +9,15 @@
 		<h1>#TweetStore ({{tweets.length}} tweets)</h1>
 		<p ng-show="tweets.length < 1">Loading tweets! Please wait...</p>
 		<ul class="tweets" ng-show="tweets.length > 0">
-			<li id="tweet-{{tweet.Id}}" class="getStatus(tweet)" ng-repeat="tweet in tweets">
+			<li id="tweet-{{tweet.Id}}" class="getStatus(tweet) toggle" ng-repeat="tweet in tweets" ng-click="toggle(tweet)">
 				<dl class="summary">
-					<dt>Id</dt>
-					<dd ng-click="toggle(tweet)">{{tweet.Id}}</dd>
+					<dt>Date</dt>
+					<dd>{{tweet.Published}}</dd>
 					<dt>Author</dt>
-					<dd>{{getAuthor(tweet)}}</dd>
-					<dt>Tweet</dt>
-					<dd ng-bind-html-unsafe="getContent(tweet)"></dd>
+					<dd><a href="{{tweet.AuthorUrl}}">{{getAuthor(tweet)}}</a></dd>
+					<dt class="content">Tweet</dt>
+					<dd class="content" ng-bind-html-unsafe="getContent(tweet)"></dd>
 				</dl>
-				<div ng-show="!isActiveTweet(tweet)"><a href="#tweet-{{tweet.Id}}" class="toggle" ng-click="toggle(tweet)">Show more...</a></div>
 				<div class="details" ng-show="isActiveTweet(tweet)">
 					<table>
 						<tr ng-repeat="keyVal in showTweet(tweet)">
@@ -27,7 +26,6 @@
 						</tr>
 					</table>
 					<div><button type="button" ng-click="remove(tweet)">Delete</button></div>
-					<div><a href="#tweet-{{tweet.Id}}" class="toggle" ng-click="toggle(tweet)">Show less...</a></div>
 				</div>
 			</li>
 		</ul>

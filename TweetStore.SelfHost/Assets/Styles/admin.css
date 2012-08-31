@@ -2,12 +2,14 @@
 h1 { margin: 0 0 20px 0; }
 a { font-weight: bold; color: #ee3535; }
 ul { padding: 0; list-style-type: none; }
-ul li { margin-bottom: 20px; padding: 10px; background-color: #dcefff; border-bottom: solid 3px #bfe2ff; }
+ul li { width: 900px; margin-bottom: 20px; padding: 10px; background-color: #dcefff; border-bottom: solid 3px #bfe2ff; }
 ul li.private { background-color: #ffcea9; }
 ul li .details { margin-top: 10px; padding: 20px; background-color: #f6f6f6; }
-ul li a.toggle { display: block; margin: 10px 0; }
-dl dt { float: left; }
+ul li.toggle { cursor: pointer; }
+dl dt { float: left;font-weight: bold; }
 dl dd { margin-left: 200px; }
+dl dd.content { width: 400px; }
+dl dt.content, dl dd.content { margin-top: 15px; }
 table { width: 100%; border-collapse: collapse; }
 table th, table td { padding: 5px; border-top: solid 1px #ccc; }
 table th { width: 200px; vertical-align: top; text-align: left; }
