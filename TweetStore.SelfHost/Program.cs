@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using TweetStore.SelfHost.App.Formatters;
@@ -8,7 +9,7 @@ namespace TweetStore.SelfHost
 {
 	class Program
 	{
-		public static ITweetStore Store = new SqlCeTweetStore(@"Data Source=C:\Develop\FluentSecurity-Website\FluentSecurity-Website\App_Data\TweetStore.sdf");
+		public static ITweetStore Store = new SqlCeTweetStore(ConfigurationManager.ConnectionStrings["TweetStore"].ConnectionString);
 		
 		static void Main(string[] args)
 		{
