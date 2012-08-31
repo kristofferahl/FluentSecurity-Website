@@ -128,11 +128,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Styles\main.less" />
-    <None Include="Content\Styles\grid.less" />
-    <None Include="Content\Styles\normalize.less" />
-    <None Include="Content\Styles\print.less" />
-    <None Include="Content\Styles\style.less" />
+    <Content Include="Content\Styles\main.less" />
+    <Content Include="Content\Styles\grid.less" />
+    <Content Include="Content\Styles\normalize.less" />
+    <Content Include="Content\Styles\print.less" />
+    <Content Include="Content\Styles\style.less" />
     <Content Include="Content\Images\favorite.png" />
     <Content Include="Content\Images\Fluent-Security-Icon.png" />
     <Content Include="Content\Images\Fluent-Security-Logo-128x128.png" />
