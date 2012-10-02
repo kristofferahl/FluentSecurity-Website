@@ -47,7 +47,7 @@ input[type="submit"]:active,
 input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;}
 
 #wrapper { width: 984px; margin: auto; }
-#header {overflow: hidden;}
+header {overflow: hidden;}
 #menu { overflow: hidden; padding: 40px 20px 20px 20px; background: url(../images/content.png) repeat; }
 #menu li { float: left; font-size: 1.3em; text-transform: uppercase; }
 #menu li a { margin: 0 38px 0 0; color: #747474; font-weight: normal; border-bottom: none; }
@@ -100,9 +100,9 @@ input[type="submit"]:focus {border:1px solid #888; cursor: pointer; color: #222;
 #main #wiki li a { display: inline; }
 #main #wiki ol li { list-style-type: decimal; }
 
-#footer { clear: both; background: url(../images/line.gif) repeat-x; padding: 20px 20px 10px; font-size: .9em; }
-#footer a { margin: 0 10px 0 0; padding: 0 0 1px; font-weight: normal; }
-#footer p { margin: 0 0 8px; }
+footer { clear: both; background: url(../images/line.gif) repeat-x; padding: 20px 20px 10px; font-size: .9em; }
+footer a { margin: 0 10px 0 0; padding: 0 0 1px; font-weight: normal; }
+footer p { margin: 0 0 8px; }
 
 .vcard {font-size: 1em;}
 .link { color: #fff; background: #221C0F; padding: 5px 10px; font-size: .9em; text-transform: uppercase; border-bottom: none; }

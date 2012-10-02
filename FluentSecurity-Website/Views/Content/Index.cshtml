@@ -3,7 +3,13 @@
 	ViewBag.Title = "Fluent Security : Fluent security configuration for ASP.NET MVC";
 	var downloadFileName = String.Format("FluentSecurity-{0}.zip", @Html.GetStableVersion());
 }
+@section Scripts {
+	<script type="text/javascript" src="http://www.websnapr.com/js/websnapr.js"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/app.js")"></script>
+}
 @section Highlights {
+<section id="highlights">
+<div class="wrapper">
 	<div class="col">
 		<h2>Learn more</h2>
 		<p>Getting started with Fluent Security is easy. You'll be up and running in minutes.</p>
@@ -19,8 +25,10 @@
 		<p>If you're not using NuGet you can grab the latest stable binaries from Github.</p>
 		<a class="link" href="https://github.com/downloads/kristofferahl/FluentSecurity/@downloadFileName">Download</a>
 	</div>
+</div>
+</section>
 }
-<div id="why">
+<section id="why">
 	<h2>Why Fluent Security</h2>
 	<ul>
 		<li class="reason">
@@ -28,16 +36,16 @@
 			<p>No attributes or nasty xml cluttering up your code.</p>
 		</li>
 		<li class="reason">
-			<h3>Customizable</h3>
-			<p>Don't like what's in the box? Create your own implementations and hook it in using your IoC-container.</p>
+			<h3>Low imprint</h3>
+			<p>Fluent Security won't spread like wildfire in your application. Your configuration can be kept in a single file.</p>
 		</li>
 		<li class="reason">
-			<h3>ASP.NET MVC 3 ready</h3>
+			<h3>ASP.NET MVC 4 ready</h3>
 			<p>Built against the latest version of ASP.NET MVC. Use the built in ASP.NET membership provider or roll your own security.</p>
 		</li>
 		<li class="reason">
-			<h3>Low imprint</h3>
-			<p>Fluent Security won't spread like wildfire in your application. Your configuration can be kept in a single file.</p>
+			<h3>Customizable</h3>
+			<p>Don't like what's in the box? Create your own implementations and hook it in using your IoC-container.</p>
 		</li>
 		<li class="reason">
 			<h3>Open</h3>
@@ -48,19 +56,34 @@
 			<p>Fluent Security is used successfully in production and has a code coverage of 99%.</p>
 		</li>
 	</ul>
-</div>
-<div id="extras">
-	<div class="twitter col">
-		<h3>FluentSecurity on twitter</h3>
+</section>
+<section id="extras">
+	<section class="blogposts">
+		<h2>Blog posts</h2>
+		<ul>
+			<li><a href="http://www.marius-schulz.net/blog/securing-an-aspnet-mvc-application-using-fluentsecurity">Securing an ASP.NET MVC Application using FluentSecurity</a> <strong>by Marius Schultz</strong></li>
+			<li><a href="http://craigsdevspace.wordpress.com/2011/07/08/mvc3-security-a-fluent-way/">MVC3 Security: A Fluent Way</a> <strong>by Craig Taylor</strong></li>
+			<li><a href="http://blogs.lessthandot.com/index.php/WebDev/ServerProgramming/ASPNET/fluent-security-with-vb-net">Fluent security with VB.Net</a> <strong>by Christain Baes</strong></li>
+			<li><a href="http://www.codeproject.com/KB/web-security/ASPNET-MVC-Security.aspx">Implement secure ASP.NET MVC applications</a> <strong>by Jovan Popovic</strong></li>
+			<li><a href="http://marcofranssen.nl/2012/05/18/secure-your-web-app-fluently/">Secure your web app fluently</a> <strong>by Marco Franssen</strong></li>
+			<li><a href="http://www.revium.com.au/articles/sandbox/fluentsecurity-mvcsitemapprovider-better-net-security-management/">FluentSecurity + MvcSiteMapProvider = Better .Net Security Management</a> <strong>by Mark Wiseman</strong></li>
+			<li><a href="http://blog.marius-schulz.net/setting-up-fluentsecurity-to-use-ninject-for-dependency-resolution">Setting Up FluentSecurity to Use Ninject for Dependency Resolution</a> <strong>by Marius Schultz</strong></li>
+		</ul>
+	</section>
+	<section class="follow">
+		<p>Follow <a href="http://twitter.com/FluentSecurity">@("@FluentSecurity")</a> and tweet about us using the hashtag <a href="http://search.twitter.com/search?q=%23FluentSecurity"><strong>#FluentSecurity</strong></a>. If you've written anything about FluentSecurity, <a href="@Url.Action("Contact")">let us know</a>.</p>
+	</section>
+	<section class="twitter col">
+		<h2>FluentSecurity on twitter</h2>
 		@foreach (var item in Model.Tweets)
 		{
 			<div class="article">
 				@Html.DisplayFor(x => item)
 			</div>
 		}
-	</div>
-	<div class="issues col">
-		<h3>Issues &amp; feature requests</h3>
+	</section>
+	<section class="issues col">
+		<h2>Issues &amp; feature requests</h2>
 		@foreach (var item in Model.Issues)
 		{
 			<div class="article">
@@ -70,9 +93,9 @@
 				<p class="short">@item.Text</p>
 			</div>
 		}
-	</div>
-	<div class="commits col last">
-		<h3>Github commits (develop)</h3>
+	</section>
+	<section class="commits col last">
+		<h2>Github commits (develop)</h2>
 		@foreach (var item in Model.Commits)
 		{
 			<div class="article">
@@ -82,5 +105,5 @@
 				<p class="short">@item.Message</p>
 			</div>
 		}
-	</div>
-</div>
+	</section>
+</section>
