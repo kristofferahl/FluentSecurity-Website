@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Configuration;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FluentSecurity.Website.App.Extensions;
@@ -44,7 +45,7 @@ namespace FluentSecurity.Website
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
-			MarkdownService = new MarkdownService(new FileContentProvider(Server.MapPath("/MarkdownFiles")));
+			MarkdownService = new MarkdownService(new GithubUrlContentProvider(ConfigurationManager.AppSettings["WikiMarkdownUrl"]));
 		}
 
 		protected void Application_Error()

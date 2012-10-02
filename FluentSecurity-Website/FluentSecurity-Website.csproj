@@ -117,6 +117,7 @@
     <Compile Include="App\Services\ITwitterService.cs" />
     <Compile Include="App\Services\TwitterService.cs" />
     <Compile Include="Controllers\WikiController.cs" />
+    <Compile Include="GithubUrlContentProvider.cs" />
     <Compile Include="Models\CommitListModel.cs" />
     <Compile Include="Models\TweetListModel.cs" />
     <Compile Include="Models\IndexPageModel.cs" />
