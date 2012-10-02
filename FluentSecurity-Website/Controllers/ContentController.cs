@@ -30,14 +30,14 @@ namespace FluentSecurity.Website.Controllers
 			return View(pageModel);
 		}
 
-		private IEnumerable<TwitterHashtagListModel> GetTweetsMatching(int maxTweets, params string[] searchTerms)
+		private IEnumerable<TweetListModel> GetTweetsMatching(int maxTweets, params string[] searchTerms)
 		{
-			var tweets = new List<TwitterHashtagListModel>();
+			var tweets = new List<TweetListModel>();
 
 			foreach (var searchTerm in searchTerms)
 				tweets.AddRange(_twitterService.Search(searchTerm, maxTweets));
 
-			return tweets.OrderByDescending(x => x.Date).Take(maxTweets).ToList();
+			return tweets.Distinct(new TweetComparer()).OrderByDescending(x => x.Published).Take(maxTweets).ToList();
 		}
 
 		public ActionResult GettingStarted()
@@ -83,6 +83,19 @@ namespace FluentSecurity.Website.Controllers
 		{
 			Response.StatusCode = 500;
 			return View();
+		}
+	}
+
+	internal class TweetComparer : IEqualityComparer<TweetListModel>
+	{
+		public bool Equals(TweetListModel x, TweetListModel y)
+		{
+			return x.StatusId == y.StatusId;
+		}
+
+		public int GetHashCode(TweetListModel obj)
+		{
+			return obj.StatusId.GetHashCode();
 		}
 	}
 }

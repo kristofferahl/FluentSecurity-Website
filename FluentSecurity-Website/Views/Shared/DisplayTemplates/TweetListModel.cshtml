@@ -1,0 +1,4 @@
+﻿@model TweetListModel
+<p class="date">@Model.Published.TimePastSince(-2, "{0} days ago", "{0} day ago", "about {0} hours ago", "{0} hour ago", "just now").ToHtmlString()</p>
+<p class="author"><a href="@Model.AuthorUrl">@Model.GetAuthorName()</a></p>
+<div class="short">@Html.Raw(Model.TweetHtmlContent ?? Model.TweetTextContent)</div>

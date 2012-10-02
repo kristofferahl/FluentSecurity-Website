@@ -8,11 +8,11 @@ namespace FluentSecurity.Website.Models
 		{
 			Commits = new List<CommitListModel>();
 			Issues = new List<IssueListModel>();
-			Tweets = new List<TwitterHashtagListModel>();
+			Tweets = new List<TweetListModel>();
 		}
 
 		public List<CommitListModel> Commits { get; set; }
 		public List<IssueListModel> Issues { get; set; }
-		public List<TwitterHashtagListModel> Tweets { get; set; }
+		public List<TweetListModel> Tweets { get; set; }
 	}
 }

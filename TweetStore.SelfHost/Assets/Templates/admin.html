@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<title>TweetStore - Admin</title>
+		
+		<link rel="stylesheet" type="text/css" href="/assets/styles/admin.css"/>
+	</head>
+	<body ng-controller="TweetsCtrl">
+		<h1>#TweetStore ({{tweets.length}} tweets)</h1>
+		<p ng-show="tweets.length < 1">Loading tweets! Please wait...</p>
+		<ul class="tweets" ng-show="tweets.length > 0">
+			<li id="tweet-{{tweet.Id}}" class="getStatus(tweet) toggle" ng-repeat="tweet in tweets" ng-click="toggle(tweet)">
+				<dl class="summary">
+					<dt>Date</dt>
+					<dd>{{tweet.Published}}</dd>
+					<dt>Author</dt>
+					<dd><a href="{{tweet.AuthorUrl}}">{{getAuthor(tweet)}}</a></dd>
+					<dt class="content">Tweet</dt>
+					<dd class="content" ng-bind-html-unsafe="getContent(tweet)"></dd>
+				</dl>
+				<div class="details" ng-show="isActiveTweet(tweet)">
+					<table>
+						<tr ng-repeat="keyVal in showTweet(tweet)">
+							<th ng-click="toggle(tweet)">{{keyVal.Key}}</th>
+							<td>{{keyVal.Value}}</td>
+						</tr>
+					</table>
+					<div><button type="button" ng-click="remove(tweet)">Delete</button></div>
+				</div>
+			</li>
+		</ul>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+		<script type="text/javascript" src="/assets/scripts/app.js"></script>
+	</body>
+</html>
