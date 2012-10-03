@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using Kiwi.Markdown;
 
-namespace FluentSecurity.Website
+namespace FluentSecurity.Website.App.Services
 {
 	public class GithubUrlContentProvider : IContentProvider
 	{

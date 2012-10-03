@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FluentSecurity.Website.App.Extensions;
+using FluentSecurity.Website.App.Services;
 using FluentSecurity.Website.Controllers;
 using Kiwi.Markdown;
 using Kiwi.Markdown.ContentProviders;
