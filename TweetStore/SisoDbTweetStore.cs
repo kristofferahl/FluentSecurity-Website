@@ -29,6 +29,7 @@ namespace TweetStore
 
 		public void Delete(Guid id)
 		{
+			EnsureInitialized();
 			_sisoDatabase.UseOnceTo().DeleteById<ITweet>(id);
 		}
 
