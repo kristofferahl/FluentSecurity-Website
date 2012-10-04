@@ -1,0 +1,2 @@
+﻿[config]
+command = powershell.exe -NoProfile -NonInteractive -InputFormat none -ExecutionPolicy unrestricted .\build-trigger.ps1 -Target Release -ArtifactsDir %DEPLOYMENT_TEMP% -DeploymentDir %DEPLOYMENT_TARGET%
