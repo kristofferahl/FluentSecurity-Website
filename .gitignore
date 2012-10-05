@@ -1,4 +1,5 @@
 Packages/psake*
+Build/Artifacts
 FluentSecurity-Website/MarkdownFiles
 FluentSecurity-Website/FluentSecurity-Website.Publish.xml
 FluentSecurity-Website/App_Data
