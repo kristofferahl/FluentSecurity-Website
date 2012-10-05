@@ -4,7 +4,7 @@ properties {
 
 	$rootDir		= '.'
 	$sourceDir		= '.'
-	$artifactsDir	= '.\Artifacts'
+	$artifactsDir	= '.\Build\Artifacts'
 	$deploymentDir	= ''
 	
 	$setupMessage	= 'Executed Setup!'
@@ -33,10 +33,13 @@ task Setup {
 }
 
 task Clean {
+	delete_directory $artifactsDir
+	create_directory $artifactsDir
 	$cleanMessage
 }
 
 task Compile -depends Setup,Clean {
+	build_solution "$sourceDir\FluentSecurity-Website.sln"
 	$compileMessage
 }
 
@@ -45,12 +48,21 @@ task Test -depends Compile {
 }
 
 task Pack -depends Test {
+	copy_files "$sourceDir\FluentSecurity-Website" @("Global.asax", "*.html", "Web.config") $artifactsDir
+	copy_files "$sourceDir\FluentSecurity-Website\bin" "*.dll" "$artifactsDir\bin"
+	copy_files "$sourceDir\FluentSecurity-Website\Content" "*.*" "$artifactsDir\Content"
+	copy_files "$sourceDir\FluentSecurity-Website\Scripts" "*.*" "$artifactsDir\Scripts"
+	copy_files "$sourceDir\FluentSecurity-Website\Views" "*.*" "$artifactsDir\Views"
 	$packMessage
 }
 
 task Deploy -depends Pack {
 	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
 		Write-Host "Deploying to: $deploymentDir."
+		
+		delete_directory "$deploymentDir"
+		create_directory "$deploymentDir\App_Data"
+		Get-ChildItem $artifactsDir -Recurse | Copy-Item -Destination { Join-Path $deploymentDir $_.FullName.Substring($artifactsDir.length) }
 	} else {
 		Write-Host "No deployment directory set!"
 	}
@@ -80,12 +92,22 @@ function global:delete_directory($directoryName) {
 	}
 }
 
-function global:copy_files($source, $destination, $exclude=@()) {
-    create_directory $destination
-    Get-ChildItem $source -Recurse -Exclude $exclude | Copy-Item -Destination { Join-Path $destination $_.FullName.Substring($source.length) }
+function global:copy_files($source, $include=@(), $destination, $exclude=@()) {
+    if ($useVerbose -eq $true) {
+		Write-Host "Copying files from '$source' to '$destination'."
+	}
+	
+	create_directory $destination
+	Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
+		$sourcePath = $_.FullName
+		$destinationPath = Join-Path $destination $_.FullName.Substring($pwd.path.length).Substring($source.length)
+		create_directory (Split-Path $destinationPath)
+		Copy-Item -Force $sourcePath $destinationPath
+	}
 }
 
 function global:copy_files_flatten($source, $filter, $destination) {
+	create_directory $destination
 	foreach($f in $filter.split(",")) {
 		ls $source -filter $f.trim() -r | cp -dest $destination
 	}	
