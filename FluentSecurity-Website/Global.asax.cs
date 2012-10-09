@@ -31,6 +31,7 @@ namespace FluentSecurity.Website
 
 			routes.RouteFor<ContentController>(x => x.Contact(), "contact");
 			routes.RouteFor<ContentController>(x => x.GettingStarted(), "getting-started");
+			routes.RouteFor<ContentController>(x => x.Support(), "support");
 			routes.RouteFor<ContentController>(x => x.Index(), "");
 
 			routes.RouteFor<ContentController>(x => x.Http500(), "system/http-500");

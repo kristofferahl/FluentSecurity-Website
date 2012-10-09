@@ -44,6 +44,11 @@ namespace FluentSecurity.Website.Controllers
 		{
 			return View();
 		}
+		
+		public ActionResult Support()
+		{
+			return View();
+		}
 
 		public ActionResult Contact()
 		{
