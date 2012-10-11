@@ -18,5 +18,5 @@ invoke-psake .\build.ps1 $Target -properties $psakeParameters;
 if ($lastexitcode -ne 0 -and $lastexitcode -ne $null) {
 	Write-Host "Exited with error code: $lastexitcode." -fore RED; exit $lastexitcode
 } else {
-	Write-Host "Exited with code: $lastexitcode." -fore GREEN; exit $lastexitcode
+	Write-Host "Exited with code: $lastexitcode." -fore GREEN; exit 0
 }

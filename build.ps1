@@ -48,11 +48,11 @@ task Test -depends Compile {
 }
 
 task Pack -depends Test {
-	copy_files "$sourceDir\FluentSecurity-Website" @("Global.asax", "*.html", "Web.config") $artifactsDir
-	copy_files "$sourceDir\FluentSecurity-Website\bin" "*.dll" "$artifactsDir\bin"
-	copy_files "$sourceDir\FluentSecurity-Website\Content" "*.*" "$artifactsDir\Content"
-	copy_files "$sourceDir\FluentSecurity-Website\Scripts" "*.*" "$artifactsDir\Scripts"
-	copy_files "$sourceDir\FluentSecurity-Website\Views" "*.*" "$artifactsDir\Views"
+	copy_files "$sourceDir\FluentSecurity-Website" $artifactsDir @("Global.asax", "*.html", "Web.config")
+	copy_files "$sourceDir\FluentSecurity-Website\bin" "$artifactsDir\bin" "*.dll"
+	copy_files "$sourceDir\FluentSecurity-Website\Content" "$artifactsDir\Content"
+	copy_files "$sourceDir\FluentSecurity-Website\Scripts" "$artifactsDir\Scripts"
+	copy_files "$sourceDir\FluentSecurity-Website\Views" "$artifactsDir\Views"
 	$packMessage
 }
 
@@ -60,10 +60,9 @@ task Deploy -depends Pack {
 	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
 		Write-Host "Deploying to: $deploymentDir."
 		
-		create_directory "$artifactsDir\App_Data"
-		copy_files "$deploymentDir\App_Data" "*.*" "$artifactsDir\App_Data"
-		delete_directory "$deploymentDir"
-		Get-ChildItem $artifactsDir -Recurse | Copy-Item -Destination { Join-Path $deploymentDir $_.FullName.Substring($artifactsDir.length) }
+		copy_files "$deploymentDir\App_Data" "$artifactsDir\App_Data"
+		delete_directory $deploymentDir
+		copy_files $artifactsDir $deploymentDir
 	} else {
 		Write-Host "No deployment directory set!"
 	}
@@ -82,36 +81,45 @@ task ? -Description "Help" {
 # --------------------------------------------------------------------------------------------------------------
 
 function global:create_directory($directoryName) {
-	if (!(test-path $directoryName -pathtype container)){
+	if (!(test-path $directoryName -pathtype container)) {
 		New-Item $directoryName -Type directory -Verbose:$useVerbose
 	}
 }
 
 function global:delete_directory($directoryName) {
-	if (test-path $directoryName -pathtype container){
+	if (test-path $directoryName -pathtype container) {
 		Remove-Item -Recurse -Force $directoryName -Verbose:$useVerbose
 	}
 }
 
-function global:copy_files($source, $include=@(), $destination, $exclude=@()) {
-    if ($useVerbose -eq $true) {
-		Write-Host "Copying files from '$source' to '$destination'."
-	}
-	
-	create_directory $destination
-	Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
-		$sourcePath = $_.FullName
-		$destinationPath = Join-Path $destination $_.FullName.Substring($pwd.path.length).Substring($source.length)
-		create_directory (Split-Path $destinationPath)
-		Copy-Item -Force $sourcePath $destinationPath
+function global:copy_files($source, $destination, $include=@("*.*"), $exclude=@()) {
+	if (test-path $source) {
+		$copiedFiles = 0
+		Write-Host "Copying '$source' to '$destination'. Include '$include'. Exclude '$exclude'"
+		
+		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
+			New-Item -ItemType Directory -Path $destination -Force | Out-Null
+			
+			$fullSourcePath = (Resolve-Path $source)
+			$fullDestinationPath = (Resolve-Path $destination)
+			$itemPath = $_.FullName -replace [regex]::Escape($fullSourcePath),[regex]::Escape($fullDestinationPath)
+			
+			New-Item -ItemType File -Path $itemPath -Force | Out-Null
+			Copy-Item -Force -Path $_ -Destination $itemPath | Out-Null
+		
+			if ($useVerbose -eq $true) { Write-Host "Copying '$_'." }
+			$copiedFiles++
+		}
+		
+		Write-Host "Copied $copiedFiles $(if ($copiedFiles -eq 1) { "item" } else { "items" })."
 	}
 }
 
-function global:copy_files_flatten($source, $filter, $destination) {
+function global:copy_files_flatten($source, $destination, $filter) {
 	create_directory $destination
 	foreach($f in $filter.split(",")) {
 		ls $source -filter $f.trim() -r | cp -dest $destination
-	}	
+	}
 }
 
 function global:build_solution($solutionName) {
