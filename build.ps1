@@ -60,8 +60,9 @@ task Deploy -depends Pack {
 	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
 		Write-Host "Deploying to: $deploymentDir."
 		
+		create_directory "$artifactsDir\App_Data"
+		copy_files "$deploymentDir\App_Data" "*.*" "$artifactsDir\App_Data"
 		delete_directory "$deploymentDir"
-		create_directory "$deploymentDir\App_Data"
 		Get-ChildItem $artifactsDir -Recurse | Copy-Item -Destination { Join-Path $deploymentDir $_.FullName.Substring($artifactsDir.length) }
 	} else {
 		Write-Host "No deployment directory set!"
