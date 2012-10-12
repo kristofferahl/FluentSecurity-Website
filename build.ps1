@@ -53,7 +53,7 @@ task Pack -depends Test {
 	copy_files "$sourceDir\FluentSecurity-Website\Content" "$artifactsDir\Content"
 	copy_files "$sourceDir\FluentSecurity-Website\Scripts" "$artifactsDir\Scripts"
 	copy_files "$sourceDir\FluentSecurity-Website\Views" "$artifactsDir\Views"
-	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\x86" "$artifactsDir\bin" "*.dll"
+	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\bin" "*.dll"
 	$packMessage
 }
 
