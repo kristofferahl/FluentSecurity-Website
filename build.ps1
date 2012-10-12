@@ -5,6 +5,7 @@ properties {
 	$rootDir		= '.'
 	$sourceDir		= '.'
 	$artifactsDir	= '.\Build\Artifacts'
+	$artifactsName	= "$product-$version-release" -replace "\.","_"
 	$deploymentDir	= ''
 	
 	$setupMessage	= 'Executed Setup!'
@@ -48,12 +49,11 @@ task Test -depends Compile {
 }
 
 task Pack -depends Test {
-	copy_files "$sourceDir\FluentSecurity-Website" $artifactsDir @("Global.asax", "*.html", "Web.config", "favicon.ico", "favicon.png")
-	copy_files "$sourceDir\FluentSecurity-Website\bin" "$artifactsDir\bin" "*.dll"
-	copy_files "$sourceDir\FluentSecurity-Website\Content" "$artifactsDir\Content"
-	copy_files "$sourceDir\FluentSecurity-Website\Scripts" "$artifactsDir\Scripts"
-	copy_files "$sourceDir\FluentSecurity-Website\Views" "$artifactsDir\Views"
-	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\bin" "*.dll"
+	pack_solution "$sourceDir\FluentSecurity-Website.sln" $artifactsDir $artifactsName
+	delete_files "$artifactsDir\$artifactsName\bin" @("*.xml", "*.pdb")
+	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\lib\net40" "$artifactsDir\$artifactsName\bin" "*.dll"
+	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\$artifactsName\bin" "*.dll"
+	delete_directory "$artifactsDir\$artifactsName\bin\Microsoft.VC90.CRT"
 	$packMessage
 }
 
@@ -61,9 +61,9 @@ task Deploy -depends Pack {
 	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
 		Write-Host "Deploying to: $deploymentDir."
 		
-		copy_files "$deploymentDir\App_Data" "$artifactsDir\App_Data"
+		copy_files "$deploymentDir\App_Data" "$artifactsDir\$artifactsName\App_Data"
 		delete_files $deploymentDir
-		copy_files $artifactsDir $deploymentDir
+		copy_files "$artifactsDir\$artifactsName" $deploymentDir
 	} else {
 		Write-Host "No deployment directory set!"
 	}
@@ -93,12 +93,12 @@ function global:delete_directory($directoryName) {
 	}
 }
 
-function global:delete_files($source, $exclude=@()) {
+function global:delete_files($source, $include=@("*"), $exclude=@()) {
 	if (test-path $source -pathtype container) {
 		$removedFiles = 0
 		Write-Host "Removing files in '$source'. Include '$include'. Exclude '$exclude'"
 		
-		Get-ChildItem $source -Recurse -Include @("*") -Exclude $exclude | % {
+		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
 			if (test-path $_) {
 				if ($useVerbose -eq $true) { Write-Host "Removing '$_'." }
 				Remove-Item $_ -Recurse -Force
@@ -149,4 +149,29 @@ function global:build_solution($solutionName) {
 	} else {
 		msbuild $solutionName /target:Rebuild /property:Configuration=Release /verbosity:minial
 	}
+}
+
+function global:pack_solution($solutionName, $destination, $packageName) {
+	create_directory $destination
+	
+	$packageRoot	= (Resolve-Path $destination)
+	$packageDir		= "$packageRoot\$packageName"
+	$packageFile	= "$packageRoot\$packageName.zip"
+
+	$msBuildVerbosity = "minimal"
+	if ($useVerbose -eq $false) {
+		$msBuildVerbosity = "quiet"
+	}
+	
+	msbuild $solutionName `
+		/target:Build `
+		/p:Configuration=Release `
+		/p:_PackageTempDir=$packageDir `
+		/p:PackageLocation=$packageFile `
+		/p:MsDeployServiceUrl=file:///$packageDir `
+		/p:MSDeployPublishMethod="File System" `
+		/p:DeployOnBuild=True `
+		/p:DeployTarget=MsDeployPublish `
+		/p:CreatePackageOnPublish=True `
+		/verbosity:$msBuildVerbosity
 }
