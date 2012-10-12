@@ -62,7 +62,7 @@ task Deploy -depends Pack {
 		Write-Host "Deploying to: $deploymentDir."
 		
 		copy_files "$deploymentDir\App_Data" "$artifactsDir\App_Data"
-		delete_directory $deploymentDir
+		delete_files $deploymentDir
 		copy_files $artifactsDir $deploymentDir
 	} else {
 		Write-Host "No deployment directory set!"
@@ -93,22 +93,42 @@ function global:delete_directory($directoryName) {
 	}
 }
 
+function global:delete_files($source, $exclude=@()) {
+	if (test-path $source -pathtype container) {
+		$removedFiles = 0
+		Write-Host "Removing files in '$source'. Include '$include'. Exclude '$exclude'"
+		
+		Get-ChildItem $source -Recurse -Include @("*") -Exclude $exclude | % {
+			if (test-path $_) {
+				if ($useVerbose -eq $true) { Write-Host "Removing '$_'." }
+				Remove-Item $_ -Recurse -Force
+				$removedFiles++
+			}
+		}
+		
+		Write-Host "Removed $removedFiles $(if ($removedFiles -eq 1) { "item" } else { "items" })."
+	}
+}
+
 function global:copy_files($source, $destination, $include=@("*.*"), $exclude=@()) {
 	if (test-path $source) {
 		$copiedFiles = 0
 		Write-Host "Copying '$source' to '$destination'. Include '$include'. Exclude '$exclude'"
 		
-		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
-			New-Item -ItemType Directory -Path $destination -Force | Out-Null
-			
+		New-Item -ItemType Directory -Path $destination -Force | Out-Null
+		
+		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {	
 			$fullSourcePath = (Resolve-Path $source)
 			$fullDestinationPath = (Resolve-Path $destination)
 			$itemPath = $_.FullName -replace [regex]::Escape($fullSourcePath),[regex]::Escape($fullDestinationPath)
 			
-			New-Item -ItemType File -Path $itemPath -Force | Out-Null
+			if ($useVerbose -eq $true) { Write-Host "Copying '$_' to '$itemPath'." }
+			
+			if (!($_.PSIsContainer)) {
+				New-Item -ItemType File -Path $itemPath -Force | Out-Null
+			}
 			Copy-Item -Force -Path $_ -Destination $itemPath | Out-Null
-		
-			if ($useVerbose -eq $true) { Write-Host "Copying '$_'." }
+			
 			$copiedFiles++
 		}
 		
