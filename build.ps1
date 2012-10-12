@@ -48,11 +48,12 @@ task Test -depends Compile {
 }
 
 task Pack -depends Test {
-	copy_files "$sourceDir\FluentSecurity-Website" $artifactsDir @("Global.asax", "*.html", "Web.config")
+	copy_files "$sourceDir\FluentSecurity-Website" $artifactsDir @("Global.asax", "*.html", "Web.config", "favicon.ico", "favicon.png")
 	copy_files "$sourceDir\FluentSecurity-Website\bin" "$artifactsDir\bin" "*.dll"
 	copy_files "$sourceDir\FluentSecurity-Website\Content" "$artifactsDir\Content"
 	copy_files "$sourceDir\FluentSecurity-Website\Scripts" "$artifactsDir\Scripts"
 	copy_files "$sourceDir\FluentSecurity-Website\Views" "$artifactsDir\Views"
+	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\x86" "$artifactsDir\bin" "*.dll"
 	$packMessage
 }
 
@@ -82,7 +83,7 @@ task ? -Description "Help" {
 
 function global:create_directory($directoryName) {
 	if (!(test-path $directoryName -pathtype container)) {
-		New-Item $directoryName -Type directory -Verbose:$useVerbose
+		New-Item $directoryName -Type directory -Force -Verbose:$useVerbose
 	}
 }
 

@@ -16,7 +16,8 @@ Import-Module '.\Packages\psake.4.2.0.1\tools\psake.psm1';
 invoke-psake .\build.ps1 $Target -properties $psakeParameters;
 
 if ($lastexitcode -ne 0 -and $lastexitcode -ne $null) {
-	Write-Host "Exited with error code: $lastexitcode." -fore RED; exit $lastexitcode
+	throw "Build exited with error code: $lastexitcode."
 } else {
-	Write-Host "Exited with code: $lastexitcode." -fore GREEN; exit 0
+	Write-Host "Exited with code: $lastexitcode." -fore GREEN;
+	exit 0
 }
