@@ -172,6 +172,6 @@ function global:pack_solution($solutionName, $destination, $packageName) {
 		/p:MSDeployPublishMethod="File System" `
 		/p:DeployOnBuild=True `
 		/p:DeployTarget=MsDeployPublish `
-		/p:CreatePackageOnPublish=True `
+		/p:CreatePackageOnPublish=False `
 		/verbosity:$msBuildVerbosity
 }
