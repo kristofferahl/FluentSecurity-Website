@@ -54,6 +54,14 @@ task Pack -depends Test {
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\lib\net40" "$artifactsDir\$artifactsName\bin" "*.dll"
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\$artifactsName\bin" "*.dll"
 	delete_directory "$artifactsDir\$artifactsName\bin\Microsoft.VC90.CRT"
+	
+	#copy_files "$sourceDir\FluentSecurity-Website" $artifactsDir @("Global.asax", "*.html", "Web.config", "favicon.ico", "favicon.png")
+	#copy_files "$sourceDir\FluentSecurity-Website\bin" "$artifactsDir\bin" "*.dll"
+	#copy_files "$sourceDir\FluentSecurity-Website\Content" "$artifactsDir\Content"
+	#copy_files "$sourceDir\FluentSecurity-Website\Scripts" "$artifactsDir\Scripts"
+	#copy_files "$sourceDir\FluentSecurity-Website\Views" "$artifactsDir\Views"
+	#copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\bin" "*.dll"
+	
 	$packMessage
 }
 
