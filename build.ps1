@@ -69,8 +69,7 @@ task Deploy -depends Pack {
 	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
 		Write-Host "Deploying to: $deploymentDir."
 		
-		copy_files "$deploymentDir\App_Data" "$artifactsDir\$artifactsName\App_Data"
-		delete_files $deploymentDir
+		delete_files $deploymentDir @("*") @("App_Data")
 		copy_files "$artifactsDir\$artifactsName" $deploymentDir
 	} else {
 		Write-Host "No deployment directory set!"
@@ -103,18 +102,8 @@ function global:delete_directory($directoryName) {
 
 function global:delete_files($source, $include=@("*"), $exclude=@()) {
 	if (test-path $source -pathtype container) {
-		$removedFiles = 0
 		Write-Host "Removing files in '$source'. Include '$include'. Exclude '$exclude'"
-		
-		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
-			if (test-path $_) {
-				if ($useVerbose -eq $true) { Write-Host "Removing '$_'." }
-				Remove-Item $_ -Recurse -Force
-				$removedFiles++
-			}
-		}
-		
-		Write-Host "Removed $removedFiles $(if ($removedFiles -eq 1) { "item" } else { "items" })."
+		Remove-Item -Recurse -Force "$source\*" -Include $include -Exclude $exclude -Verbose:$useVerbose	
 	}
 }
 
@@ -164,7 +153,8 @@ function global:pack_solution($solutionName, $destination, $packageName) {
 	
 	$packageRoot	= (Resolve-Path $destination)
 	$packageDir		= "$packageRoot\$packageName"
-	$packageFile	= "$packageRoot\$packageName.zip"
+	
+	create_directory $packageDir
 
 	$msBuildVerbosity = "minimal"
 	if ($useVerbose -eq $false) {
@@ -172,14 +162,8 @@ function global:pack_solution($solutionName, $destination, $packageName) {
 	}
 	
 	msbuild $solutionName `
-		/target:Build `
-		/p:Configuration=Release `
+		/target:Publish `
+		/property:Configuration=Release `
 		/p:_PackageTempDir=$packageDir `
-		/p:PackageLocation=$packageFile `
-		/p:MsDeployServiceUrl=file:///$packageDir `
-		/p:MSDeployPublishMethod="File System" `
-		/p:DeployOnBuild=True `
-		/p:DeployTarget=MsDeployPublish `
-		/p:CreatePackageOnPublish=False `
 		/verbosity:$msBuildVerbosity
 }
