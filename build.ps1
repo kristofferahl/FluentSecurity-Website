@@ -7,14 +7,14 @@ properties {
 	$artifactsDir	= '.\Build\Artifacts'
 	$artifactsName	= "$product-$version-release" -replace "\.","_"
 	$deploymentDir	= ''
-	
+
 	$setupMessage	= 'Executed Setup!'
 	$cleanMessage	= 'Executed Clean!'
 	$compileMessage	= 'Executed Compile!'
 	$testMessage	= 'Executed Test!'
 	$packMessage	= 'Executed Pack!'
 	$deployMessage	= 'Executed Deploy!'
-	
+
 	$useVerbose = $false
 }
 
@@ -54,22 +54,25 @@ task Pack -depends Test {
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\lib\net40" "$artifactsDir\$artifactsName\bin" "*.dll"
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\$artifactsName\bin" "*.dll"
 	delete_directory "$artifactsDir\$artifactsName\bin\Microsoft.VC90.CRT"
-	
+
 	#copy_files "$sourceDir\FluentSecurity-Website" $artifactsDir @("Global.asax", "*.html", "Web.config", "favicon.ico", "favicon.png")
 	#copy_files "$sourceDir\FluentSecurity-Website\bin" "$artifactsDir\bin" "*.dll"
 	#copy_files "$sourceDir\FluentSecurity-Website\Content" "$artifactsDir\Content"
 	#copy_files "$sourceDir\FluentSecurity-Website\Scripts" "$artifactsDir\Scripts"
 	#copy_files "$sourceDir\FluentSecurity-Website\Views" "$artifactsDir\Views"
 	#copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\bin" "*.dll"
-	
+
 	$packMessage
 }
 
 task Deploy -depends Pack {
 	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
 		Write-Host "Deploying to: $deploymentDir."
+
+		execute_retry {
+			delete_files $deploymentDir @("*") @("App_Data")
+		} "Delete deployed files"
 		
-		delete_files $deploymentDir @("*") @("App_Data")
 		copy_files "$artifactsDir\$artifactsName" $deploymentDir
 	} else {
 		Write-Host "No deployment directory set!"
@@ -85,7 +88,7 @@ task ? -Description "Help" {
 
 
 # -------------------------------------------------------------------------------------------------------------
-# Reusable functions 
+# Reusable functions
 # --------------------------------------------------------------------------------------------------------------
 
 function global:create_directory($directoryName) {
@@ -103,7 +106,7 @@ function global:delete_directory($directoryName) {
 function global:delete_files($source, $include=@("*"), $exclude=@()) {
 	if (test-path $source -pathtype container) {
 		Write-Host "Removing files in '$source'. Include '$include'. Exclude '$exclude'"
-		Remove-Item -Recurse -Force "$source\*" -Include $include -Exclude $exclude -Verbose:$useVerbose	
+		Remove-Item -Recurse -Force "$source\*" -Include $include -Exclude $exclude -Verbose:$useVerbose
 	}
 }
 
@@ -111,24 +114,24 @@ function global:copy_files($source, $destination, $include=@("*.*"), $exclude=@(
 	if (test-path $source) {
 		$copiedFiles = 0
 		Write-Host "Copying '$source' to '$destination'. Include '$include'. Exclude '$exclude'"
-		
+
 		New-Item -ItemType Directory -Path $destination -Force | Out-Null
-		
-		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {	
+
+		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
 			$fullSourcePath = (Resolve-Path $source)
 			$fullDestinationPath = (Resolve-Path $destination)
 			$itemPath = $_.FullName -replace [regex]::Escape($fullSourcePath),[regex]::Escape($fullDestinationPath)
-			
+
 			if ($useVerbose -eq $true) { Write-Host "Copying '$_' to '$itemPath'." }
-			
+
 			if (!($_.PSIsContainer)) {
 				New-Item -ItemType File -Path $itemPath -Force | Out-Null
 			}
 			Copy-Item -Force -Path $_ -Destination $itemPath | Out-Null
-			
+
 			$copiedFiles++
 		}
-		
+
 		Write-Host "Copied $copiedFiles $(if ($copiedFiles -eq 1) { "item" } else { "items" })."
 	}
 }
@@ -150,20 +153,50 @@ function global:build_solution($solutionName) {
 
 function global:pack_solution($solutionName, $destination, $packageName) {
 	create_directory $destination
-	
+
 	$packageRoot	= (Resolve-Path $destination)
 	$packageDir		= "$packageRoot\$packageName"
-	
+
 	create_directory $packageDir
 
 	$msBuildVerbosity = "minimal"
 	if ($useVerbose -eq $false) {
 		$msBuildVerbosity = "quiet"
 	}
-	
+
 	msbuild $solutionName `
 		/target:Publish `
 		/property:Configuration=Release `
 		/p:_PackageTempDir=$packageDir `
 		/verbosity:$msBuildVerbosity
+}
+
+function global:execute_retry($Command, $CommandName, $retries = 3) {
+    $currentRetry = 0;
+    $success = $false;
+
+    do
+    {
+        try
+        {
+            & $Command;
+            $success = $true;
+            Write-Host "Successfully executed [$CommandName] command. Number of retries: $currentRetry.";
+        }
+        catch [System.Exception]
+        {
+            Write-Host "Exception occurred while trying to execute [$CommandName] command:" + $_.Exception.ToString() -fore Yellow;
+            if ($currentRetry -gt $retries)
+            {
+                throw "Can not execute [$CommandName] command. The error: " + $_.Exception.ToString();
+            }
+            else
+            {
+               Write-Host "Sleeping before $currentRetry retry of [$CommandName] command";
+               Start-Sleep -s 1;
+            }
+            $currentRetry = $currentRetry + 1;
+        }
+    }
+    while (!$success);
 }
