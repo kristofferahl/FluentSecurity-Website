@@ -54,14 +54,6 @@ task Pack -depends Test {
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\lib\net40" "$artifactsDir\$artifactsName\bin" "*.dll"
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\$artifactsName\bin" "*.dll"
 	delete_directory "$artifactsDir\$artifactsName\bin\Microsoft.VC90.CRT"
-
-	#copy_files "$sourceDir\FluentSecurity-Website" $artifactsDir @("Global.asax", "*.html", "Web.config", "favicon.ico", "favicon.png")
-	#copy_files "$sourceDir\FluentSecurity-Website\bin" "$artifactsDir\bin" "*.dll"
-	#copy_files "$sourceDir\FluentSecurity-Website\Content" "$artifactsDir\Content"
-	#copy_files "$sourceDir\FluentSecurity-Website\Scripts" "$artifactsDir\Scripts"
-	#copy_files "$sourceDir\FluentSecurity-Website\Views" "$artifactsDir\Views"
-	#copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\bin" "*.dll"
-
 	$packMessage
 }
 
@@ -69,7 +61,7 @@ task Deploy -depends Pack {
 	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
 		Write-Host "Deploying to: $deploymentDir."
 
-		execute_retry {
+		with_retry {
 			delete_files $deploymentDir @("*") @("App_Data")
 		} "Delete deployed files"
 		
@@ -171,20 +163,17 @@ function global:pack_solution($solutionName, $destination, $packageName) {
 		/verbosity:$msBuildVerbosity
 }
 
-function global:execute_retry($Command, $CommandName, $retries = 3) {
+function global:with_retry($Command, $CommandName, $retries = 3) {
     $currentRetry = 0;
     $success = $false;
 
-    do
-    {
-        try
-        {
+    do {
+        try {
             & $Command;
             $success = $true;
             Write-Host "Successfully executed [$CommandName] command. Number of retries: $currentRetry.";
         }
-        catch [System.Exception]
-        {
+        catch [System.Exception] {
             Write-Host "Exception occurred while trying to execute [$CommandName] command:" + $_.Exception.ToString() -fore Yellow;
             if ($currentRetry -gt $retries)
             {
