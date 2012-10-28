@@ -143,7 +143,7 @@ namespace FluentSecurity.Website.App.Extensions
 					var properties = root.Elements().Where(e => e.Name.LocalName == "property" && e.HasAttributes);
 					if (properties.Any())
 					{
-						var versionProperty = properties.SingleOrDefault(p => p.FirstAttribute.Value == "project.version.label");
+						var versionProperty = properties.FirstOrDefault(p => p.FirstAttribute.Value == "project.version.label");
 						if (versionProperty != null)
 						{
 							var versionAttribute = versionProperty.Attribute("value");
