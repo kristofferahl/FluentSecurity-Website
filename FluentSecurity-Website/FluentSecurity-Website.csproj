@@ -129,6 +129,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\FluentSecurity-Glimpse-Diagnostics.png" />
     <Content Include="Content\Styles\main.less" />
     <Content Include="Content\Styles\grid.less" />
     <Content Include="Content\Styles\normalize.less" />
