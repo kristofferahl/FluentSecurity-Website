@@ -1,17 +1,17 @@
 ﻿@model ContactEditModel
 @{
-    ViewBag.Title = "Contact : Fluent Security";
+    ViewBag.Title = "Contact : FluentSecurity";
 }
 <h2>Contact</h2>
 <address class="vcard">
-	<a href="http://www.fluentsecurity.net/" class="org url">Fluent Security</a> - <a href="http://www.77dynamite.com/" class="fn">Kristoffer Ahl</a><br />
+	<a href="http://www.fluentsecurity.net/" class="org url">FluentSecurity</a> - <a href="http://www.77dynamite.com/" class="fn">Kristoffer Ahl</a><br />
 	Email: <a href="mailto:mail@fluentsecurity.net" class="email">mail@fluentsecurity.net</a><br />
 	Twitter: <a href="http://twitter.com/FluentSecurity" class="twitter">@("@FluentSecurity")</a>, <a href="http://twitter.com/kristofferahl" class="twitter">@("@kristofferahl")</a>
 </address>
 
 <h3>Get in touch</h3>
 @if (Model.EmailSent == false) {
-<p>Using Fluent Security or have a question about it, <strong>I'd love to hear from you</strong>!</p>
+<p>Using FluentSecurity or have a question about it, <strong>I'd love to hear from you</strong>!</p>
 using (Html.BeginForm()) {
 <fieldset>
 	<legend>Contact</legend>
