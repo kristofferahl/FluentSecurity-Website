@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
@@ -136,21 +137,24 @@ namespace FluentSecurity.Website.App.Extensions
 		{
 			try
 			{
-				var xml = XDocument.Load("https://raw.github.com/kristofferahl/FluentSecurity/master/Build/Scripts/Build.build");
-				var root = xml.Root;
-				if (root != null)
+				var buildScript = new WebClient().DownloadString("https://raw.github.com/kristofferahl/FluentSecurity/master/build.ps1");
+				if (!String.IsNullOrEmpty(buildScript))
 				{
-					var properties = root.Elements().Where(e => e.Name.LocalName == "property" && e.HasAttributes);
-					if (properties.Any())
+					var rows = buildScript.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
+					var filteredRows = rows.Where(row => row.Contains("=") && (row.Contains("$version") || row.Contains("$label")));
+					var dictionary = new Dictionary<string, string>();
+					foreach (var filteredRow in filteredRows)
 					{
-						var versionProperty = properties.FirstOrDefault(p => p.FirstAttribute.Value == "project.version.label");
-						if (versionProperty != null)
-						{
-							var versionAttribute = versionProperty.Attribute("value");
-							if (versionAttribute != null)
-								return versionAttribute.Value;
-						}
+						var key = filteredRow.Split('=')[0].Trim();
+						var value = filteredRow.Split('=')[1].Trim().Trim('\'');
+						dictionary.Add(key, value);
 					}
+					var version = dictionary["$version"];
+					var label = dictionary["$label"];
+
+					return !String.IsNullOrEmpty(label)
+						? String.Join("-", version, label)
+						: version;
 				}
 			}
 			catch {}
