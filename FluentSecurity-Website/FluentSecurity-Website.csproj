@@ -113,6 +113,7 @@
     <Compile Include="App\Extensions\UrlHelperExtensions.cs" />
     <Compile Include="App\Services\GithubService.cs" />
     <Compile Include="App\Services\IGithubService.cs" />
+    <Compile Include="App\Services\TwitterCredentials.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="App\Services\ITwitterService.cs" />
     <Compile Include="App\Services\TwitterService.cs" />
@@ -172,6 +173,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Wiki\Doc.cshtml" />
     <Content Include="Views\Content\Support.cshtml" />
+    <None Include="App_Data\twittercredentials.json" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
@@ -217,9 +219,7 @@
       <Name>TweetStore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Web.Helpers;
+using System.Web.Hosting;
 using FluentSecurity.Website.Models;
 using LinqToTwitter;
 using TweetStore;
@@ -17,15 +20,18 @@ namespace FluentSecurity.Website.App.Services
 
 		public TwitterService(ITweetStore tweetStore)
 		{
+			var file = HostingEnvironment.MapPath("~/App_Data/twittercredentials.json");
+			var fileContents = File.ReadAllText(file);
+			var twitterCredentials = Json.Decode<TwitterCredentials>(fileContents);
 			_tweetStore = tweetStore;
 			_auth = new SingleUserAuthorizer
 			{
 				Credentials = new InMemoryCredentials
 				{
-					ConsumerKey = ConfigurationManager.AppSettings["TwitterConsumerKey"],
-					ConsumerSecret = ConfigurationManager.AppSettings["TwitterConsumerSecret"],
-					OAuthToken = ConfigurationManager.AppSettings["TwitterOAuthToken"],
-					AccessToken = ConfigurationManager.AppSettings["TwitterAccessToken"]
+					ConsumerKey = twitterCredentials.TwitterConsumerKey,
+					ConsumerSecret = twitterCredentials.TwitterConsumerSecret,
+					OAuthToken = twitterCredentials.TwitterOAuthToken,
+					AccessToken = twitterCredentials.TwitterAccessToken
 				}
 			};
 		}
