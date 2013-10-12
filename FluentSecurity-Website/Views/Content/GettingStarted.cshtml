@@ -17,7 +17,7 @@
 	configuration.For<AccountController>(x => x.LogOff()).DenyAnonymousAccess();
 });
 
-GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);")
+GlobalFilters.Filters.Add(new HandleSecurityAttribute(), -1);")
 
 <h3>An extended example</h3>
 <p><em>The example is based on the Internet Application template for ASP.NET MVC 3 with the addition of a Blog controller and a security helper class.</em></p>
@@ -43,7 +43,7 @@ GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);")
 	configuration.For<BlogController>(x => x.PublishPosts()).RequireRole(BlogRole.Owner);
 });
 
-GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);")
+GlobalFilters.Filters.Add(new HandleSecurityAttribute(), -1);")
 
 <p></p>
 	
@@ -71,7 +71,7 @@ GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);")
 
 <h3>Bootstrapping</h3>
 <p>The part that enforces your policies is the action filter called HandleSecurityAttribute. When you add it to your global filters collection, make sure that you put your call to <code>SecurityConfigurator.Configure(...)</code> before registering the action filter or it will blow up.</p>
-<p><code>GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);</code></p>
+<p><code>GlobalFilters.Filters.Add(new HandleSecurityAttribute(), -1);</code></p>
 
 <h3>Ignoring missing configurations</h3>
 <p>By default FluentSecurity will throw an exception if a missing configuration is encountered for a controller action. If you don't want FluentSecurity to handle security for all controllers you can tell it to ignore missing configurations. You can do this by adding <code>configuration.IgnoreMissingConfiguration();</code> to your configuration expression.</p>
