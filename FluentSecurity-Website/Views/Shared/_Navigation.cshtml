@@ -12,7 +12,7 @@
 	@Html.NavigationLink(Url.Action<ContentController>(x => x.Index()), "Home", wrapperElement),
 	@Html.NavigationLink(Url.Action<ContentController>(x => x.GettingStarted()), "Getting started", wrapperElement),
 	@Html.NavigationLink(Url.Action<WikiController>(x => x.Doc("")), "Documentation", wrapperElement),
-	@Html.NavigationLink("https://github.com/kristofferahl/FluentSecurity/downloads", "Downloads", wrapperElement),
+	@Html.NavigationLink(Url.Action<WikiController>(x => x.Doc(""), new { docId = "Downloads" }), "Downloads", wrapperElement, markSelectedWhenActive: false),
 	@Html.NavigationLink(Url.Action<WikiController>(x => x.Doc(""), new { docId = "Contributing" }), "Contribute", wrapperElement, markSelectedWhenActive: false),
 	@Html.NavigationLink(Url.Action<ContentController>(x => x.Support()), "Support", wrapperElement),
 	@Html.NavigationLink(Url.Action<ContentController>(x => x.Contact()), "Contact", wrapperElement)
