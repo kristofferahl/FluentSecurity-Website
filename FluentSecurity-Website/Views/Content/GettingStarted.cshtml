@@ -52,15 +52,21 @@ GlobalFilters.Filters.Add(new HandleSecurityAttribute(), -1);")
 <dl>
 	<dt><strong>DenyAnonymousAccessPolicy</strong></dt>
 	<dd>The user must be authenticated. Requires no specific role.</dd>
-					
+	
 	<dt><strong>DenyAuthenticatedAccessPolicy</strong></dt>
 	<dd>The user must be anonymous.</dd>
-					
-	<dt><strong>RequireRolePolicy</strong></dt>
+	
+	<dt><strong>RequireAnyRolePolicy</strong></dt>
 	<dd>The user must be authenticated with one or more of the specified roles.</dd>
-					
+	
+	<dt><strong>RequireAllRolesPolicy</strong></dt>
+	<dd>The user must be authenticated with all of the specified roles.</dd>
+	
 	<dt><strong>IgnorePolicy</strong></dt>
 	<dd>All users are allowed.</dd>
+	
+	<dt><strong>DelegatePolicy</strong></dt>
+	<dd>The specified delegate must return true or a success result (PolicyResult).</dd>
 </dl>
 
 <h3>Create your own policy</h3>
