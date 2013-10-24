@@ -77,6 +77,11 @@ namespace FluentSecurity.Website.Controllers
 			}
 			return View(inModel);
 		}
+		
+		public ActionResult Downloads()
+		{
+			return RedirectPermanent("/wiki/downloads");
+		}
 
 		public ActionResult Http404()
 		{
