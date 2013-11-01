@@ -48,7 +48,7 @@ namespace FluentSecurity.Website
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
-			MarkdownService = new MarkdownService(new GithubUrlContentProvider(ConfigurationManager.AppSettings["WikiMarkdownUrl"]));
+			MarkdownService = new MarkdownService(new FileBackedGithubUrlContentProvider(ConfigurationManager.AppSettings["WikiMarkdownUrl"], ConfigurationManager.AppSettings["WikiMarkdownBackupDirectory"]));
 		}
 
 		protected void Application_Error()
