@@ -15,15 +15,22 @@ namespace FluentSecurity.Website.App.Services
 				: String.Concat(baseUrl, "/");
 		}
 
-		public string GetContent(string docId)
+		public virtual string GetContent(string docId)
 		{
-			var url = String.Concat(BaseUrl, docId, ".md");
-			using (var client = new WebClient())
+			try
 			{
-				var document = client.DownloadString(url);
-				return String.IsNullOrWhiteSpace(document) || document.Contains("<!DOCTYPE html>")
-					? null
-					: document;
+				var url = String.Concat(BaseUrl, docId, ".md");
+				using (var client = new WebClient())
+				{
+					var document = client.DownloadString(url);
+					return String.IsNullOrWhiteSpace(document) || document.Contains("<!DOCTYPE html>")
+						? null
+						: document;
+				}
+			}
+			catch
+			{
+				return null;
 			}
 		}
 	}
