@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace FluentSecurity.Website.App.Services
@@ -8,7 +9,7 @@ namespace FluentSecurity.Website.App.Services
 
 		public FileBackedGithubUrlContentProvider(string baseUrl, string backupDirectory) : base(baseUrl)
 		{
-			BackupDirectory = backupDirectory;
+			BackupDirectory = String.Concat(AppDomain.CurrentDomain.BaseDirectory, @"\", backupDirectory);
 			if (!Directory.Exists(BackupDirectory))
 			{
 				Directory.CreateDirectory(BackupDirectory);
