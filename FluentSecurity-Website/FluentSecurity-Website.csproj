@@ -120,6 +120,7 @@
     <Compile Include="App\Extensions\TagBuilderExtensions.cs" />
     <Compile Include="App\Extensions\DateTimeExtensions.cs" />
     <Compile Include="App\Extensions\UrlHelperExtensions.cs" />
+    <Compile Include="App\Services\FileBackedGithubUrlContentProvider.cs" />
     <Compile Include="App\Services\GithubService.cs" />
     <Compile Include="App\Services\IGithubService.cs" />
     <Compile Include="App\Services\TwitterCredentials.cs" />
