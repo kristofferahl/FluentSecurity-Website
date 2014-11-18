@@ -29,6 +29,7 @@ task Info {
 }
 
 task Setup {
+	nuget_exe install ".nuget\packages.config" -OutputDirectory "Source\Packages"
 	$setupMessage
 }
 
