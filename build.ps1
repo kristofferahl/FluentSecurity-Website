@@ -18,15 +18,10 @@ properties {
 	$useVerbose = $false
 }
 
-task default -depends Local
+task default -depends Info, Deploy
 
-task Local {
-	Write-Host "Running local build" -fore Yellow;
-	Invoke-Task Pack
-}
-task Release {
-	Write-Host "Running release build" -fore Yellow;
-	Invoke-Task Deploy
+task Info {
+	Write-Host "Running build" -fore Yellow;
 }
 
 task Setup {
@@ -76,92 +71,9 @@ task ? -Description "Help" {
 	Write-Documentation
 }
 
-
-
-
 # -------------------------------------------------------------------------------------------------------------
 # Reusable functions
 # --------------------------------------------------------------------------------------------------------------
-
-function global:create_directory($directoryName) {
-	if (!(test-path $directoryName -pathtype container)) {
-		New-Item $directoryName -Type directory -Force -Verbose:$useVerbose
-	}
-}
-
-function global:delete_directory($directoryName) {
-	if (test-path $directoryName -pathtype container) {
-		Remove-Item -Recurse -Force $directoryName -Verbose:$useVerbose
-	}
-}
-
-function global:delete_files($source, $include=@("*"), $exclude=@()) {
-	if (test-path $source -pathtype container) {
-		Write-Host "Removing files in '$source'. Include '$include'. Exclude '$exclude'"
-		Remove-Item -Recurse -Force "$source\*" -Include $include -Exclude $exclude -Verbose:$useVerbose
-	}
-}
-
-function global:copy_files($source, $destination, $include=@("*.*"), $exclude=@()) {
-	if (test-path $source) {
-		$copiedFiles = 0
-		Write-Host "Copying '$source' to '$destination'. Include '$include'. Exclude '$exclude'"
-
-		New-Item -ItemType Directory -Path $destination -Force | Out-Null
-
-		Get-ChildItem $source -Recurse -Include $include -Exclude $exclude | % {
-			$fullSourcePath = (Resolve-Path $source)
-			$fullDestinationPath = (Resolve-Path $destination)
-			$itemPath = $_.FullName -replace [regex]::Escape($fullSourcePath),[regex]::Escape($fullDestinationPath)
-
-			if ($useVerbose -eq $true) { Write-Host "Copying '$_' to '$itemPath'." }
-
-			if (!($_.PSIsContainer)) {
-				New-Item -ItemType File -Path $itemPath -Force | Out-Null
-			}
-			Copy-Item -Force -Path $_ -Destination $itemPath | Out-Null
-
-			$copiedFiles++
-		}
-
-		Write-Host "Copied $copiedFiles $(if ($copiedFiles -eq 1) { "item" } else { "items" })."
-	}
-}
-
-function global:copy_files_flatten($source, $destination, $filter) {
-	create_directory $destination
-	foreach($f in $filter.split(",")) {
-		ls $source -filter $f.trim() -r | cp -dest $destination
-	}
-}
-
-function global:build_solution($solutionName) {
-	if ($useVerbose -eq $false) {
-		msbuild $solutionName /target:Rebuild /property:Configuration=Release /verbosity:quiet
-	} else {
-		msbuild $solutionName /target:Rebuild /property:Configuration=Release /verbosity:minial
-	}
-}
-
-function global:pack_solution($solutionName, $destination, $packageName) {
-	create_directory $destination
-
-	$packageRoot	= (Resolve-Path $destination)
-	$packageDir		= "$packageRoot\$packageName"
-
-	create_directory $packageDir
-
-	$msBuildVerbosity = "minimal"
-	if ($useVerbose -eq $false) {
-		$msBuildVerbosity = "quiet"
-	}
-
-	msbuild $solutionName `
-		/target:Publish `
-		/property:Configuration=Release `
-		/p:_PackageTempDir=$packageDir `
-		/verbosity:$msBuildVerbosity
-}
 
 function global:with_retry($Command, $CommandName, $retries = 3) {
     $currentRetry = 0;

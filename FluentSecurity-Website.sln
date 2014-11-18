@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSecurity-Website", "FluentSecurity-Website\FluentSecurity-Website.csproj", "{8A68529F-7E20-4021-A873-A57D70D7F2CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStore", "TweetStore\TweetStore.csproj", "{A7753EFB-BA9D-4D11-ACD8-2F47B4EA4C70}"
@@ -8,6 +8,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStore.SqlCe", "TweetStore.SqlCE\TweetStore.SqlCe.csproj", "{436FD04D-5D60-430B-B29D-A5BEC37C00FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetStore.SelfHost", "TweetStore.SelfHost\TweetStore.SelfHost.csproj", "{8A940B71-9ADD-428E-B4AE-3AC2F41D765B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F9AE762B-EA7A-43B0-A3DA-6600DA7EFB8A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
