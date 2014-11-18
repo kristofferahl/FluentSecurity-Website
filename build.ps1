@@ -65,7 +65,7 @@ task Pack -depends Test {
 	generate-nuspec `
 	    -destination "$artifactsDir\$artifactsName" `
 	    -id $product `
-	    -version $version `
+	    -version $buildVersion `
 	    -author 'Kristoffer Ahl' `
 	    -description 'The website for FluentSecurity' `
 	    -basePath "$artifactsDir\$artifactsName"
