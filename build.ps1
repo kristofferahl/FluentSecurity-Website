@@ -10,7 +10,11 @@ properties {
 	$sourceDir		= '.'
 	$artifactsDir	= '.\Build\Artifacts'
 	$artifactsName	= "$product-$version-release" -replace "\.","_"
-	$deploymentDir	= ''
+	$deployTo		= ''
+
+	$buildNumber	= $null
+	$octopusApiKey	= $null
+	$octopusServer	= $null
 
 	$setupMessage	= 'Executed Setup!'
 	$cleanMessage	= 'Executed Clean!'
@@ -25,7 +29,10 @@ properties {
 task default -depends Info, Deploy
 
 task Info {
-	Write-Host "Running build" -fore Yellow;
+	Write-Host "Running local build" -fore Yellow
+	Write-Host "Product:        $product" -fore Yellow
+	Write-Host "Version:        $version" -fore Yellow
+	Write-Host "Build version:  $buildVersion" -fore Yellow
 }
 
 task Setup {
@@ -69,16 +76,26 @@ task Pack -depends Test {
 }
 
 task Deploy -depends Pack {
-	if ($deploymentDir -ne $null -and $deploymentDir -ne "") {
-		Write-Host "Deploying to: $deploymentDir."
+	if ($deployTo -eq 'Production' -or $deployTo -eq 'Develop') {
+		Write-Host "Pushing nuget packages to octopus"
 
-		with_retry {
-			delete_files $deploymentDir @("*") @("App_Data")
-		} "Delete deployed files"
-		
-		copy_files "$artifactsDir\$artifactsName" $deploymentDir
+		nuget_exe push (resolve-path "$artifactsDir\$($product).$($buildVersion).nupkg") -source "$octopusServer/nuget/packages" $octopusApiKey
+
+		$octo = "$sourceDir\packages\OctopusTools.2.5.10.39\octo.exe"
+
+		Write-Host "Creating Octopus Deploy release ($buildVersion)"
+
+		exec {
+			& $octo create-release `
+				--project="FluentSecurity.Web" `
+				--server=$octopusServer `
+				--apiKey=$octopusApiKey `
+				--version=$buildVersion `
+				--releasenotes="$product ($buildLabel) - Release created from buildscript." `
+				--deployTo=$deployTo
+		}
 	} else {
-		Write-Host "No deployment directory set!"
+		Write-Host "Skipping deployment..."
 	}
 	$deployMessage
 }
@@ -87,33 +104,6 @@ task ? -Description "Help" {
 	Write-Documentation
 }
 
-# -------------------------------------------------------------------------------------------------------------
-# Reusable functions
-# --------------------------------------------------------------------------------------------------------------
-
-function global:with_retry($Command, $CommandName, $retries = 3) {
-    $currentRetry = 0;
-    $success = $false;
-
-    do {
-        try {
-            & $Command;
-            $success = $true;
-            Write-Host "Successfully executed [$CommandName] command. Number of retries: $currentRetry.";
-        }
-        catch [System.Exception] {
-            Write-Host "Exception occurred while trying to execute [$CommandName] command:" + $_.Exception.ToString() -fore Yellow;
-            if ($currentRetry -gt $retries)
-            {
-                throw "Can not execute [$CommandName] command. The error: " + $_.Exception.ToString();
-            }
-            else
-            {
-               Write-Host "Sleeping before $currentRetry retry of [$CommandName] command";
-               Start-Sleep -s 1;
-            }
-            $currentRetry = $currentRetry + 1;
-        }
-    }
-    while (!$success);
+taskSetup {
+	$script:buildVersion = ?: {$buildNumber -ne $null} {"$version.$buildNumber"} {$version}
 }
