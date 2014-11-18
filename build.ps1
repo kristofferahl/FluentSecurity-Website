@@ -1,3 +1,7 @@
+packages @{
+	"Koshu.NuGet"=""
+}
+
 properties {
 	$product		= 'FluentSecurity.Website'
 	$version		= '2.0.0'
@@ -49,6 +53,17 @@ task Pack -depends Test {
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\lib\net40" "$artifactsDir\$artifactsName\bin" "*.dll"
 	copy_files "$sourceDir\Packages\Microsoft.SqlServer.Compact.4.0.8854.2\NativeBinaries\amd64" "$artifactsDir\$artifactsName\bin" "*.dll"
 	delete_directory "$artifactsDir\$artifactsName\bin\Microsoft.VC90.CRT"
+
+	generate-nuspec `
+	    -destination "$artifactsDir\$artifactsName" `
+	    -id $product `
+	    -version $version `
+	    -author 'Kristoffer Ahl' `
+	    -description 'The website for FluentSecurity' `
+	    -basePath "$artifactsDir\$artifactsName"
+
+	nuget_exe pack "$artifactsDir\$artifactsName\$product.nuspec" -outputdirectory $artifactsDir -nopackageanalysis
+
 	$packMessage
 }
 
