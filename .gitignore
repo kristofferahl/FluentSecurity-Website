@@ -1,3 +1,5 @@
+Packages/
+!Packages/repositories.config
 Build/Artifacts
 FluentSecurity-Website/MarkdownFiles
 FluentSecurity-Website/FluentSecurity-Website.Publish.xml
