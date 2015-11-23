@@ -24,7 +24,8 @@
 		var url = encodeURIComponent(link.attr('href'));
 
 		var thumbnail = $('<img />', {
-			src: 'http://images.websnapr.com/?url=' + url + '&key=' + apiKey + '&hash=' + encodeURIComponent(websnapr_hash),
+			//src: 'http://images.websnapr.com/?url=' + url + '&key=' + apiKey + '&hash=' + encodeURIComponent(websnapr_hash),
+			src: '/Content/images/Website-Thumbnail.png',
 			alt: 'Loading thumbnail...',
 			title: 'Thumnail ' + index,
 			width: 120
