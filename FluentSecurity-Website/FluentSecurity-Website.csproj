@@ -63,9 +63,9 @@
     <Reference Include="Kiwi.Markdown">
       <HintPath>..\packages\Kiwi.Markdown.0.8.2\lib\net40\Kiwi.Markdown.dll</HintPath>
     </Reference>
-    <Reference Include="LinqToTwitter, Version=2.1.6.0, Culture=neutral, PublicKeyToken=957107be965c25d9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\linqtotwitter.2.1.06\lib\net40\LinqToTwitter.dll</HintPath>
+    <Reference Include="LinqToTwitter">
+      <HintPath>..\packages\LinqToTwitter.2.1.11\lib\net40\LinqToTwitter.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.11\lib\net40-full\log4net.dll</HintPath>
